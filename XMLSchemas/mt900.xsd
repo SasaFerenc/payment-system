@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/mt900" xmlns="http://www.ftn.uns.ac.rs/mt900"
+    xmlns:t="http://www.ftn.uns.ac.rs/tipovi_podataka">
+
+    <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi_podataka"
+        schemaLocation="tipoviPodataka.xsd"/>
+    <xs:element name="mt900">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id_poruke" type="t:String_50"/>
+                <xs:element name="swift_kod_duznika" type="t:Swift_kod"/>
+                <xs:element name="obracunski_racun_duznika" type="t:Racun_banke"/>
+                <xs:element name="id_poruke_naloga" type="t:String_50"/>
+                <xs:element name="datum_valute" type="xs:date"/>
+                <xs:element name="iznos" type="t:Decimal_15"/>
+                <xs:element name="sifra_valute" type="t:String_3"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

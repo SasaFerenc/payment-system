@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/zahtev_za_izvod"
+    xmlns="http://www.ftn.uns.ac.rs/zahtev_za_izvod"
+    xmlns:t="http://www.ftn.uns.ac.rs/tipovi_podataka">
+
+    <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi_podataka"
+        schemaLocation="tipoviPodataka.xsd"/>
+    <xs:element name="zahtev_za_izvod">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="broj_racuna" type="t:String_18"/>
+                <xs:element name="datum" type="xs:date"/>
+                <xs:element name="redni_broj_preseka" type="t:Number_2"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

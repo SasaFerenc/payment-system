@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/mt103" xmlns="http://www.ftn.uns.ac.rs/mt103"
+    xmlns:pp="http://ftn.uns.ac.rs/podaci_o_placanju"
+    xmlns:t="http://www.ftn.uns.ac.rs/tipovi_podataka">
+
+    <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi_podataka"
+        schemaLocation="tipoviPodataka.xsd"/>
+    <xs:import namespace="http://ftn.uns.ac.rs/podaci_o_placanju"
+        schemaLocation="podaci_o_placanju.xsd"/>
+    <xs:element name="mt103">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="id_poruke" type="t:String_50"/>
+                <xs:element name="swift_kod_duznika" type="t:Swift_kod"/>
+                <xs:element name="obracunski_racun_duznika" type="t:Racun_banke"/>
+                <xs:element name="swift_kod_poverioca" type="t:Swift_kod"/>
+                <xs:element name="obracunski_racun_poverioca" type="t:Racun_banke"/>
+                <xs:element name="podaci_o_placanju" type="pp:podaci_o_placanju"/>
+                <xs:element name="sifra_valute" type="t:String_3"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

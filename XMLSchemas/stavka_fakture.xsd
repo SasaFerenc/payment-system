@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/stavka_fakture"
+    xmlns="http://www.ftn.uns.ac.rs/stavka_fakture"
+    xmlns:t="http://www.ftn.uns.ac.rs/tipovi_podataka">
+
+    <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi_podataka"
+        schemaLocation="tipoviPodataka.xsd"/>
+        <xs:complexType name="stavka_fakture">
+            <xs:sequence>
+                <xs:element name="redni_broj" type="t:Number_3"/>
+                <xs:element name="naziv_robe_usluge" type="t:String_120"/>
+                <xs:element name="kolicina" type="t:Decimal_10"/>
+                <xs:element name="jedinica_mere" type="t:String_6"/>
+                <xs:element name="jedinicna_cena" type="t:Decimal_10"/>
+                <xs:element name="vrednost" type="t:Decimal_12"/>
+                <xs:element name="procenat_rabata" type="t:Decimal_5"/>
+                <xs:element name="iznos_rabata" type="t:Decimal_12"/>
+                <xs:element name="umanjeno_za_rabat" type="t:Decimal_12"/>
+                <xs:element name="ukupan_porez" type="t:Decimal_12"/>
+            </xs:sequence>
+        </xs:complexType>
+</xs:schema>

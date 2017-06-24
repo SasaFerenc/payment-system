@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://ftn.uns.ac.rs/zaglavlje_preseka"
+    xmlns="http://ftn.uns.ac.rs/zaglavlje_preseka"
+    xmlns:t="http://www.ftn.uns.ac.rs/tipovi_podataka">
+
+    <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi_podataka"
+        schemaLocation="tipoviPodataka.xsd"/>
+    <xs:complexType name="zaglavlje_preseka">
+        <xs:all>
+            <xs:element name="broj_racuna" type="t:String_18"/>
+            <xs:element name="datum_naloga" type="xs:date"/>
+            <xs:element name="broj_preseka" type="t:Number_2"/>
+            <xs:element name="prethodno_stanje" type="t:Decimal_15"/>
+            <xs:element name="broj_promena_u_korist" type="t:Number_6"/>
+            <xs:element name="ukupno_u_korist" type="t:Decimal_15"/>
+            <xs:element name="broj_promena_na_teret" type="t:Number_6"/>
+            <xs:element name="ukupno_stanje" type="t:Decimal_15"/>
+            <xs:element name="ukupno_na_teret" type="t:Decimal_15"/>
+        </xs:all>
+    </xs:complexType>
+</xs:schema>

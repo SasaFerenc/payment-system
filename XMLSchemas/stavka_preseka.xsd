@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/stavka_preseka"
+    xmlns="http://www.ftn.uns.ac.rs/stavka_preseka"
+    xmlns:pp="http://ftn.uns.ac.rs/podaci_o_placanju"
+    xmlns:t="http://www.ftn.uns.ac.rs/tipovi_podataka">
+
+    <xs:import namespace="http://ftn.uns.ac.rs/podaci_o_placanju"
+        schemaLocation="podaci_o_placanju.xsd"/>
+    <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi_podataka"
+        schemaLocation="tipoviPodataka.xsd"/>
+    <xs:complexType name="stavka_preseka">
+        <xs:all>
+            <xs:element name="podaci_o_placanju" type="pp:podaci_o_placanju"/>
+            <xs:element name="smer">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:length value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:all>
+    </xs:complexType>
+</xs:schema>

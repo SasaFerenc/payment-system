@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/presek" xmlns="http://www.ftn.uns.ac.rs/presek"
+    xmlns:sp="http://www.ftn.uns.ac.rs/stavka_preseka"
+    xmlns:zp="http://ftn.uns.ac.rs/zaglavlje_preseka">
+
+    <xs:import namespace="http://ftn.uns.ac.rs/zaglavlje_preseka"
+        schemaLocation="zaglavlje_preseka.xsd"/>
+    <xs:import namespace="http://www.ftn.uns.ac.rs/stavka_preseka"
+        schemaLocation="stavka_preseka.xsd"/>
+    <xs:element name="presek">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="zaglavlje_preseka" type="zp:zaglavlje_preseka"/>
+                <xs:element name="stavka_preseka" type="sp:stavka_preseka" maxOccurs="unbounded"
+                    minOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

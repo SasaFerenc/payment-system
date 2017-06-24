@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/faktura" xmlns="http://www.ftn.uns.ac.rs/faktura"
+    xmlns:sf="http://www.ftn.uns.ac.rs/stavka_fakture"
+    xmlns:zf="http://www.ftn.uns.ac.rs/zaglavlje_fakture">
+
+    <xs:import namespace="http://www.ftn.uns.ac.rs/zaglavlje_fakture"
+        schemaLocation="zaglavlje_fakture.xsd"/>
+    <xs:import namespace="http://www.ftn.uns.ac.rs/stavka_fakture"
+        schemaLocation="stavka_fakture.xsd"/>
+    <xs:element name="faktura">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="zaglavlje_fakture" type="zf:Zaglavlje_fakture"/>
+                <xs:element maxOccurs="unbounded" minOccurs="1" name="stavka_fakture"
+                    type="sf:stavka_fakture"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
