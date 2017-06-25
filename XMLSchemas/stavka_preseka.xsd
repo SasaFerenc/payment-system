@@ -8,7 +8,7 @@
     <xs:import namespace="http://ftn.uns.ac.rs/podaci_o_placanju"
         schemaLocation="podaci_o_placanju.xsd"/>
     <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi_podataka"
-        schemaLocation="tipoviPodataka.xsd"/>
+        schemaLocation="tipovi_podataka.xsd"/>
     <xs:complexType name="stavka_preseka">
         <xs:all>
             <xs:element name="podaci_o_placanju" type="pp:podaci_o_placanju"/>

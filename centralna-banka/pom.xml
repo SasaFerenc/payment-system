@@ -85,9 +85,9 @@
 					<sources>
 						<source>src/main/resources/schemas</source>
 					</sources>
-					<outputDirectory>src/main/java/com/centralnabanka/gen</outputDirectory>
-					<packageName>models</packageName>
-					<clearOutputDir>true</clearOutputDir>
+					<outputDirectory>src/main/java</outputDirectory>
+					<packageName>com.centralnabanka.models</packageName>
+					<clearOutputDir>false</clearOutputDir>
 				</configuration>
 			</plugin>
 		</plugins>

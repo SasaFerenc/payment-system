@@ -2,7 +2,8 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 
 # Ignore generated files
-src/main/java/com/centralnabanka/gen/
+src/main/java/com/centralnabanka/models/
+src/main/java/META-INF/
 src/main/resources/schemas/
 
 ### STS ###

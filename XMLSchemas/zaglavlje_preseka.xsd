@@ -5,7 +5,7 @@
     xmlns:t="http://www.ftn.uns.ac.rs/tipovi_podataka">
 
     <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi_podataka"
-        schemaLocation="tipoviPodataka.xsd"/>
+        schemaLocation="tipovi_podataka.xsd"/>
     <xs:complexType name="zaglavlje_preseka">
         <xs:all>
             <xs:element name="broj_racuna" type="t:String_18"/>

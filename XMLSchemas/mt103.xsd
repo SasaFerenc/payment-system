@@ -5,7 +5,7 @@
     xmlns:t="http://www.ftn.uns.ac.rs/tipovi_podataka">
 
     <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi_podataka"
-        schemaLocation="tipoviPodataka.xsd"/>
+        schemaLocation="tipovi_podataka.xsd"/>
     <xs:import namespace="http://ftn.uns.ac.rs/podaci_o_placanju"
         schemaLocation="podaci_o_placanju.xsd"/>
     <xs:element name="mt103">
