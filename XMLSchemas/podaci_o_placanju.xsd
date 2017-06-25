@@ -5,7 +5,7 @@
     xmlns:t="http://www.ftn.uns.ac.rs/tipovi_podataka">
 
     <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi_podataka"
-        schemaLocation="tipoviPodataka.xsd"/>
+        schemaLocation="tipovi_podataka.xsd"/>
     <xs:complexType name="podaci_o_placanju">
         <xs:all>
             <xs:element name="duznik_nalogodavac" type="t:String_255"/>
