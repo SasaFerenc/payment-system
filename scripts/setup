@@ -2,7 +2,7 @@
 
 function copy_commom_files {
   cp XMLSchemas/podaci_o_placanju.xsd $1
-  cp XMLSchemas/tipoviPodataka.xsd $1
+  cp XMLSchemas/tipovi_podataka.xsd $1
 }
 
 # Setup central bank.
