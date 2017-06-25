@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    targetNamespace="http://www.ftn.uns.ac.rs/zaglavlje_fakture"
-    xmlns="http://www.ftn.uns.ac.rs/zaglavlje_fakture"
-    xmlns:t="http://www.ftn.uns.ac.rs/tipovi_podataka">
+    targetNamespace="http://www.paymentsystem.rs/schemas/zaglavlje_fakture"
+    xmlns="http://www.paymentsystem.rs/schemas/zaglavlje_fakture"
+    xmlns:t="http://www.paymentsystem.rs/schemas/tipovi_podataka">
 
-    <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi_podataka"
+    <xs:import namespace="http://www.paymentsystem.rs/schemas/tipovi_podataka"
         schemaLocation="tipovi_podataka.xsd"/>
         <xs:complexType name="Zaglavlje_fakture">
             <xs:sequence>
@@ -28,5 +28,5 @@
                 <xs:element name="datum_valute" type="xs:date"/>
             </xs:sequence>
         </xs:complexType>
-    
+
 </xs:schema>

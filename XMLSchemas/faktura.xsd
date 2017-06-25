@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    targetNamespace="http://www.ftn.uns.ac.rs/faktura" xmlns="http://www.ftn.uns.ac.rs/faktura"
-    xmlns:sf="http://www.ftn.uns.ac.rs/stavka_fakture"
-    xmlns:zf="http://www.ftn.uns.ac.rs/zaglavlje_fakture">
+  targetNamespace="http://www.paymentsystem.rs/schemas/faktura" xmlns="http://www.paymentsystem.rs/schemas/faktura"
+    xmlns:sf="http://www.paymentsystem.rs/schemas/stavka_fakture"
+    xmlns:zf="http://www.paymentsystem.rs/schemas/zaglavlje_fakture">
 
-    <xs:import namespace="http://www.ftn.uns.ac.rs/zaglavlje_fakture"
+    <xs:import namespace="http://www.paymentsystem.rs/schemas/zaglavlje_fakture"
         schemaLocation="zaglavlje_fakture.xsd"/>
-    <xs:import namespace="http://www.ftn.uns.ac.rs/stavka_fakture"
+      <xs:import namespace="http://www.paymentsystem.rs/schema/stavka_fakture"
         schemaLocation="stavka_fakture.xsd"/>
     <xs:element name="faktura">
         <xs:complexType>

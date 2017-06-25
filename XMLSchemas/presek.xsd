@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    targetNamespace="http://www.ftn.uns.ac.rs/presek" xmlns="http://www.ftn.uns.ac.rs/presek"
-    xmlns:sp="http://www.ftn.uns.ac.rs/stavka_preseka"
-    xmlns:zp="http://ftn.uns.ac.rs/zaglavlje_preseka">
+    targetNamespace="http://www.paymentsystem.rs/schemas/presek" xmlns="http://www.paymentsystem.rs/schemas/presek"
+    xmlns:sp="http://www.paymentsystem.rs/schemas/stavka_preseka"
+    xmlns:zp="http://paymentsystem.rs/schemas/zaglavlje_preseka">
 
-    <xs:import namespace="http://ftn.uns.ac.rs/zaglavlje_preseka"
+    <xs:import namespace="http://paymentsystem.rs/schemas/zaglavlje_preseka"
         schemaLocation="zaglavlje_preseka.xsd"/>
-    <xs:import namespace="http://www.ftn.uns.ac.rs/stavka_preseka"
+    <xs:import namespace="http://www.paymentsystem.rs/schemas/stavka_preseka"
         schemaLocation="stavka_preseka.xsd"/>
     <xs:element name="presek">
         <xs:complexType>
