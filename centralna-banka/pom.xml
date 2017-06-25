@@ -82,11 +82,11 @@
 					</execution>
 				</executions>
 				<configuration>
+					<sourceType>wsdl</sourceType>
 					<sources>
-						<source>src/main/resources/schemas</source>
+						<source>src/main/resources/wsdl</source>
 					</sources>
-					<outputDirectory>src/main/java</outputDirectory>
-					<packageName>com.centralnabanka.models</packageName>
+					<packageName>com.centralnabanka.types</packageName>
 					<clearOutputDir>false</clearOutputDir>
 				</configuration>
 			</plugin>
