@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions targetNamespace="http://www.paymentsystem.rs/central-bank/services"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+
+    <types>
+        <schema targetNamespace="http://www.paymentsystem.rs/central-bank"
+                xmlns="http://www.w3.org/2001/XMLSchema"
+                attributeFormDefault="qualified"
+                elementFormDefault="qualified"
+                version="1.0">
+
+            <import schemaLocation="../schemas/mt102.xsd" namespace="http://www.paymentsystem.rs/schemas/mt102" />
+            <import schemaLocation="../schemas/mt103.xsd" namespace="http://www.paymentsystem.rs/schemas/mt103" />
+            <import schemaLocation="../schemas/mt900.xsd" namespace="http://www.paymentsystem.rs/schemas/mt900" />
+            <import schemaLocation="../schemas/mt910.xsd" namespace="http://www.paymentsystem.rs/schemas/mt910" />
+
+            <element name="error">
+                <complexType>
+                    <sequence>
+                        <element name="message" type="string" />
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
+    </types>
+
+    <message name="RTGSRequest">
+        <part name="mt103" element="mt103" />
+    </message>
+    <message name="RTGSResponse">
+        <part name="mt900" element="mt900" />
+    </message>
+    <message name="RTGSFault">
+        <part name="mt102Fault" element="error" />
+    </message>
+
+    <portType name="CentralBank_PortType">
+        <operation name="receiveMt103">
+            <input message="RTGSRequest" />
+            <output message="RTGSResponse" />
+            <fault name="mt103Fault" message="RTGSFault" />
+        </operation>
+    </portType>
+    
+    <binding name="CentralBank_Binding" type="CentralBank_PortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
+
+        <operation name="receiveMt103">
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+            <fault name="mt103Fault" />
+        </operation>
+    </binding>
+    
+    <service name="CentralBank_Service">
+        <port binding="CentralBank_Binding" name="CentralBank_Port">
+            <soap:address location="http://localhost:8080/ws/services" />
+        </port>
+    </service>
+
+</definitions>
