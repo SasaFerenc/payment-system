@@ -10,17 +10,16 @@
                 elementFormDefault="qualified"
                 attributeFormDefault="unqualified"
                 xmlns="http://www.w3.org/2001/XMLSchema">
-            <import schemaLocation="../schemas/mt102.xsd" namespace="http://www.ftn.uns.ac.rs/mt102"/>
-            <import schemaLocation="../schemas/mt103.xsd" namespace="http://www.ftn.uns.ac.rs/mt102"/>
-            <import schemaLocation="../schemas/mt910.xsd" namespace="http://www.ftn.uns.ac.rs/mt910"/>
-            <import schemaLocation="../schemas/mt900.xsd" namespace="http://www.ftn.uns.ac.rs/mt900"/>
-            <import schemaLocation="../schemas/mt103.xsd" namespace="http://www.ftn.uns.ac.rs/mt102"/>
-            <import schemaLocation="../schemas/nalog_za_placanje.xsd" namespace="http://www.ftn.uns.ac.rs/nalog_za_placanje"/>
-            <import schemaLocation="../schemas/podaci_o_placanju.xsd" namespace="http://www.ftn.uns.ac.rs/podaci_o_placanju"/>
-            <import schemaLocation="../schemas/presek.xsd" namespace="http://www.ftn.uns.ac.rs/presek"/>
-            <import schemaLocation="../schemas/stavka_preseka.xsd" namespace="http://www.ftn.uns.ac.rs/stavka_preseka"/>
-            <import schemaLocation="../schemas/zaglavlje_preseka.xsd" namespace="http://www.ftn.uns.ac.rs/zaglavlje_preseka"/>
-            <import schemaLocation="../schemas/zahtev_za_izvod.xsd" namespace="http://www.ftn.uns.ac.rs/zahtev_za_izvod"/>
+            <import schemaLocation="../schemas/mt102.xsd" namespace="http://www.paymentsystem.rs/schemas/mt102"/>
+            <import schemaLocation="../schemas/mt103.xsd" namespace="http://www.paymentsystem.rs/schemas/mt103"/>
+            <import schemaLocation="../schemas/mt910.xsd" namespace="http://www.paymentsystem.rs/schemas/mt910"/>
+            <import schemaLocation="../schemas/mt900.xsd" namespace="http://www.paymentsystem.rs/schemas/mt900"/>
+            <import schemaLocation="../schemas/nalog_za_placanje.xsd" namespace="http://www.paymentsystem.rs/schemas/nalog_za_placanje"/>
+            <import schemaLocation="../schemas/podaci_o_placanju.xsd" namespace="http://www.paymentsystem.rs/schemas/podaci_o_placanju"/>
+            <import schemaLocation="../schemas/presek.xsd" namespace="http://www.paymentsystem.rs/schemas/presek"/>
+            <import schemaLocation="../schemas/stavka_preseka.xsd" namespace="http://www.paymentsystem.rs/schemas/stavka_preseka"/>
+            <import schemaLocation="../schemas/zaglavlje_preseka.xsd" namespace="http://www.paymentsystem.rs/schemas/zaglavlje_preseka"/>
+            <import schemaLocation="../schemas/zahtev_za_izvod.xsd" namespace="http://www.paymentsystem.rs/schemas/zahtev_za_izvod"/>
         </schema>
     </types>
 
