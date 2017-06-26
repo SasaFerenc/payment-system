@@ -1,4 +1,4 @@
-package com.firma.controllers;
+package com.firma.controller;
 
 import com.firma.models.Nalog;
 import org.springframework.web.bind.annotation.PathVariable;
