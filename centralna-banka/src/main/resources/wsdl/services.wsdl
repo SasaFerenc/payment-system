@@ -59,7 +59,7 @@
     
     <service name="CentralBank_Service">
         <port binding="CentralBank_Binding" name="CentralBank_Port">
-            <soap:address location="http://localhost:8080/ws/services" />
+            <soap:address location="http://localhost:8080/ws" />
         </port>
     </service>
 
