@@ -25,7 +25,7 @@ public class Faktura {
     private Long id;
 
     @OneToMany(mappedBy = "faktura")
-    private List<StavkaFaktura> stavkaFakture;
+    private List<StavkaFaktura> stavkeFakture;
 
     @Column(length = 50)
     @Size(max = 50)
