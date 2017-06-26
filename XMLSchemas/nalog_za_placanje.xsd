@@ -3,11 +3,11 @@
     targetNamespace="http://www.paymentsystem.rs/schemas/nalog_za_placanje"
     xmlns="http://www.paymentsystem.rs/schemas/nalog_za_placanje"
     xmlns:t="http://www.paymentsystem.rs/schemas/tipovi_podataka"
-    xmlns:pp="http://paymentsystem.rs/schemas/podaci_o_placanju">
+    xmlns:pp="http://www.paymentsystem.rs/schemas/podaci_o_placanju">
 
     <xs:import namespace="http://www.paymentsystem.rs/schemas/tipovi_podataka"
         schemaLocation="tipovi_podataka.xsd"/>
-    <xs:import namespace="http://paymentsystem.rs/schemas/podaci_o_placanju"
+    <xs:import namespace="http://www.paymentsystem.rs/schemas/podaci_o_placanju"
         schemaLocation="podaci_o_placanju.xsd"/>
     <xs:element name="nalog">
         <xs:complexType>

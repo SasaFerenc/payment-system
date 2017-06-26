@@ -2,9 +2,9 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
     targetNamespace="http://www.paymentsystem.rs/schemas/presek" xmlns="http://www.paymentsystem.rs/schemas/presek"
     xmlns:sp="http://www.paymentsystem.rs/schemas/stavka_preseka"
-    xmlns:zp="http://paymentsystem.rs/schemas/zaglavlje_preseka">
+    xmlns:zp="http://www.paymentsystem.rs/schemas/zaglavlje_preseka">
 
-    <xs:import namespace="http://paymentsystem.rs/schemas/zaglavlje_preseka"
+    <xs:import namespace="http://www.paymentsystem.rs/schemas/zaglavlje_preseka"
         schemaLocation="zaglavlje_preseka.xsd"/>
     <xs:import namespace="http://www.paymentsystem.rs/schemas/stavka_preseka"
         schemaLocation="stavka_preseka.xsd"/>
