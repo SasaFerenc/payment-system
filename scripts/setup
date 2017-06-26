@@ -15,8 +15,12 @@ cbdest=$(destination "centralna-banka")
 
 ls XMLSchemas | grep mt | xargs -I % cp XMLSchemas/% $cbdest
 
-copy_commom_files $cbdest
+copy_common_files $cbdest
 
 #Setup firm
 
 ls XMLSchemas | grep -Fv "mt" | xargs -I % cp XMLSchemas/% $(destination "firma")
+
+#Setup bank
+
+ls XMLSchemas | grep -Fv "faktur" | xargs -I % cp XMLSchemas/% $(destination "banka")
