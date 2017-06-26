@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-function copy_commom_files {
+function copy_common_files {
   cp XMLSchemas/podaci_o_placanju.xsd $1
   cp XMLSchemas/tipovi_podataka.xsd $1
 }
