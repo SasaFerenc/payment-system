@@ -6,13 +6,11 @@ import com.centralnabanka.service.MessageSenderService;
 import com.centralnabanka.service.RtgsService;
 import com.centralnabanka.types.Mt103;
 import com.centralnabanka.types.Mt900;
-import com.centralnabanka.types.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.SoapFaultException;
-import sun.plugin2.message.Message;
 
 import java.math.BigDecimal;
 
@@ -48,8 +46,13 @@ public class RtgsServiceImpl extends WebServiceGatewaySupport implements RtgsSer
                 new SoapFaultException("Bank with SWIFT code: " + creditorSwiftCode + " not found."));
 
         BigDecimal transferAmount = request.getPodaciOPlacanju().getIznos();
+        BigDecimal newCreditorAccountBalance = creditor.getAccountBalance().subtract(transferAmount);
 
-        creditor.setAccountBalance(creditor.getAccountBalance().subtract(transferAmount));
+        if (newCreditorAccountBalance.signum() == -1) {
+            throw new SoapFaultException("Bank with SWIFT code: " + creditorSwiftCode + " has negative account balance");
+        }
+
+        creditor.setAccountBalance(newCreditorAccountBalance);
         bankRepository.save(creditor);
 
         debtor.setAccountBalance(debtor.getAccountBalance().add(transferAmount));
