@@ -1,6 +1,7 @@
 package com.firma.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
@@ -16,7 +17,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "Faktura")
+@NoArgsConstructor
 public class Faktura {
 
     @Id
@@ -97,6 +98,6 @@ public class Faktura {
     @Column(length = 18)
     @Size(max = 18)
     private String uplataNaRacun;
-    
+
     private Date datumValute;
 }
