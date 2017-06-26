@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/invoices")
-public class InvoiceService {
+public class InvoiceController {
 
     @RequestMapping(
             method = RequestMethod.POST,

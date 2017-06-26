@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Created by Predrag on 6/26/17.
  */
 @RequestMapping(value = "payments")
-public class PaymentRequestService {
+public class PaymentRequestController {
 
     @RequestMapping(
             method = RequestMethod.POST,
