@@ -15,13 +15,6 @@
             <import schemaLocation="../schemas/mt900.xsd" namespace="http://www.paymentsystem.rs/schemas/mt900" />
             <import schemaLocation="../schemas/mt910.xsd" namespace="http://www.paymentsystem.rs/schemas/mt910" />
 
-            <element name="error">
-                <complexType>
-                    <sequence>
-                        <element name="message" type="string" />
-                    </sequence>
-                </complexType>
-            </element>
         </schema>
     </types>
 
@@ -31,15 +24,11 @@
     <message name="RTGSResponse">
         <part name="mt900" element="mt900" />
     </message>
-    <message name="RTGSFault">
-        <part name="mt102Fault" element="error" />
-    </message>
 
     <portType name="CentralBank_PortType">
         <operation name="receiveMt103">
             <input message="RTGSRequest" />
             <output message="RTGSResponse" />
-            <fault name="mt103Fault" message="RTGSFault" />
         </operation>
     </portType>
     
