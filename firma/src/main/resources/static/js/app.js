@@ -1,0 +1,1 @@
+var app = angular.module('FirmApplication', [ 'FirmApplication.factory', 'FirmApplication.invoiceController' ]);
