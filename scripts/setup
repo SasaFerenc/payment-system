@@ -1,14 +1,22 @@
 #!/usr/bin/env bash
 
-function copy_commom_files {
+function copy_common_files {
   cp XMLSchemas/podaci_o_placanju.xsd $1
   cp XMLSchemas/tipovi_podataka.xsd $1
 }
 
+function destination {
+  mkdir -p "$1/src/main/resources/schemas"
+  echo "$1/src/main/resources/schemas"
+}
+
 # Setup central bank.
-destination=centralna-banka/src/main/resources/schemas
-mkdir -p $destination
+cbdest=$(destination "centralna-banka")
 
-ls XMLSchemas | grep mt | xargs -I % cp XMLSchemas/% $destination
+ls XMLSchemas | grep mt | xargs -I % cp XMLSchemas/% $cbdest
 
-copy_commom_files $destination
+copy_commom_files $cbdest
+
+#Setup firm
+
+ls XMLSchemas | grep -Fv "mt" | xargs -I % cp XMLSchemas/% $(destination "firma")
