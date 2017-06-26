@@ -15,11 +15,12 @@ public class ClientConfig {
         return  jaxb2Marshaller;
     }
 
+    @Bean
     public WebServiceTemplate webServiceTemplate() {
         WebServiceTemplate webServiceTemplate = new WebServiceTemplate();
         webServiceTemplate.setMarshaller(jaxb2Marshaller());
         webServiceTemplate.setUnmarshaller(jaxb2Marshaller());
-        webServiceTemplate.setDefaultUri("http://localhost:8080/ws");
+        webServiceTemplate.setDefaultUri("http://192.168.1.7:8080/ws");
 
         return webServiceTemplate;
     }
