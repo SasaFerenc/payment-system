@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             name="Banka"
+             targetNamespace="http://www.paymentsystem.rs/banka/services"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+
+
+    <types>
+        <schema targetNamespace="http://wwww.paymentsystem.rs/schemas/banka"
+                elementFormDefault="qualified"
+                attributeFormDefault="unqualified"
+                xmlns="http://www.w3.org/2001/XMLSchema">
+            <import schemaLocation="../schemas/faktura.xsd" namespace="http://www.ftn.uns.ac.rs/faktura"/>
+            <import schemaLocation="../schemas/"
+        </schema>
+    </types>
+
+</definitions>
