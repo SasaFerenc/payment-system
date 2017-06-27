@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Data
 @Table(name = "account")
 public class Account implements Serializable {
 
@@ -27,46 +28,4 @@ public class Account implements Serializable {
     @JoinColumn(name = "firm_id", referencedColumnName = "firm_id")
     private Firm firm;
 
-    public Account() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getCountNumber() {
-        return countNumber;
-    }
-
-    public double getReserved() {
-        return reserved;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setCountNumber(String countNumber) {
-        this.countNumber = countNumber;
-    }
-
-    public void setReserved(double reserved) {
-        this.reserved = reserved;
-    }
-
-    public void setTotal(double total) {
-        this.total = total;
-    }
-
-    public void setFirm(Firm firm) {
-        this.firm = firm;
-    }
-
-    public double getTotal() {
-        return total;
-    }
-
-    public Firm getFirm() {
-        return firm;
-    }
 }
