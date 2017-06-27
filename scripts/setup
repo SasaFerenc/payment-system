@@ -15,7 +15,7 @@ cbdest=$(destination "centralna-banka")
 
 ls XMLSchemas | grep mt | xargs -I % cp XMLSchemas/% $cbdest
 
-copy_commom_files $cbdest
+copy_common_files $cbdest
 
 #Setup firm
 

@@ -21,7 +21,7 @@ import java.util.List;
 public class Faktura {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToMany(mappedBy = "faktura")
@@ -106,5 +106,5 @@ public class Faktura {
     private Boolean sent;
 
     @Column
-    private Boolean recieved;
+    private Boolean received;
 }

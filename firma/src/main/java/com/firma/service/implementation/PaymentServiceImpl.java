@@ -3,9 +3,9 @@ package com.firma.service.implementation;
 import com.firma.model.Nalog;
 import com.firma.repository.PaymentRepository;
 import com.firma.service.PaymentService;
+import com.firma.ws.client.FirmClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ws.client.core.WebServiceTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,12 +18,12 @@ import java.util.Optional;
 public class PaymentServiceImpl implements PaymentService {
 
     private PaymentRepository paymentRepository;
-    private WebServiceTemplate webServiceTemplate;
+    private FirmClient firmClient;
 
     @Autowired
-    public PaymentServiceImpl(PaymentRepository paymentRepository, WebServiceTemplate webServiceTemplate){
+    public PaymentServiceImpl(PaymentRepository paymentRepository, FirmClient firmClient){
         this.paymentRepository = paymentRepository;
-        this.webServiceTemplate = webServiceTemplate;
+        this.firmClient = firmClient;
     }
 
     @Override
@@ -47,8 +47,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public void send(com.firma.types.Nalog nalog) {
-        //TODO: find other bank's address
-        webServiceTemplate.marshalSendAndReceive("", nalog);
+        firmClient.sendPayment(nalog);
     }
 
 }

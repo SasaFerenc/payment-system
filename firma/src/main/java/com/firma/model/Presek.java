@@ -1,5 +1,6 @@
 package com.firma.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,13 +19,14 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Presek {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "presek")
+    @OneToMany(mappedBy = "presek", cascade = CascadeType.ALL)
     private List<StavkaPreseka> stavkePreseka;
 
     @Column(length = 18)
