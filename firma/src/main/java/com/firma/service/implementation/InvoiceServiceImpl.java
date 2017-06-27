@@ -46,6 +46,7 @@ public class InvoiceServiceImpl implements InvoiceService{
 
     @Override
     public void sentInvoice(Faktura faktura) {
+        //TODO: find other firm's url and send message
         RestTemplate template = new RestTemplate();
         ResponseEntity<String> response = template.postForEntity("", faktura, String.class);
     }

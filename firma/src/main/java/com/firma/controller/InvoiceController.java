@@ -1,7 +1,8 @@
 package com.firma.controller;
 
-import com.firma.service.implementation.InvoiceServiceImpl;
+import com.firma.service.InvoiceService;
 import com.firma.model.Faktura;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +18,10 @@ import java.util.List;
 @RequestMapping("/invoices")
 public class InvoiceController {
 
-    private InvoiceServiceImpl invoiceService;
+    private InvoiceService invoiceService;
 
-    public InvoiceController(InvoiceServiceImpl invoiceService){
+    @Autowired
+    public InvoiceController(InvoiceService invoiceService){
         this.invoiceService = invoiceService;
     }
 
