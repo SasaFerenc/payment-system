@@ -25,6 +25,9 @@
     <message name="RTGSResponse">
         <part name="mt103" element="mt103" />
     </message>
+    <message name="PaymentRequest">
+        <part name="nalog" element="nalog" />
+    </message>
     <message name="Response">
         <part name="mt103Response" type="StringResponse" />
     </message>
@@ -32,6 +35,10 @@
     <portType name="Bank_PortType">
         <operation name="receiveMt103">
             <input message="RTGSResponse" />
+            <output message="Response" />
+        </operation>
+        <operation name="paymentRequest">
+            <input message="PaymentRequest" />
             <output message="Response" />
         </operation>
     </portType>
@@ -47,6 +54,15 @@
                 <soap:body use="literal" />
             </output>
         </operation>
+        <operation name="paymentRequest">
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+
     </binding>
 
     <service name="Bank_Service">
