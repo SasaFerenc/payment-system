@@ -1,79 +1,157 @@
 var app = angular.module('FirmApplication.invoiceController', []);
 
-app.controller("invoice",['$scope', function ($scope){
+app.controller("invoice",['$scope' ,'factory', function ($scope, factory){
 
     $scope.invoiceFormShow = false;
     $scope.invoiceCreateButton = "Kreiraj Fakturu";
 
-    $scope.item = {
-        redniBroj: "",
-        nazivRobeUsluge: "",
-        kolicina: "",
-        jedinicaMere: "",
-        jedinicnaCena: "",
-        vrednost: "",
-        procenatRabata: "",
-        iznosRabata: "",
-        umanjenoZaRabat: "",
-        ukupanPorez: ""
+    $scope.invoices = [];
+
+    $scope.showDetails = false;
+    $scope.showItemDetails = false;
+
+    var initialiseInvoice = function () {
+
+        $scope.item = {
+            redniBroj: "",
+            nazivRobeUsluge: "",
+            kolicina: "",
+            jedinicaMere: "",
+            jedinicnaCena: "",
+            vrednost: "",
+            procenatRabata: "",
+            iznosRabata: "",
+            umanjenoZaRabat: "",
+            ukupanPorez: ""
+        }
+
+
+        $scope.invoice ={
+            idPoruke: "",
+            nazivDobavljaca: "",
+            adresaDobavljaca: "",
+            pibDobavljaca: "",
+            nazivKupca: "",
+            adresaKupca: "",
+            pibKupca: "",
+            brojRacuna: "",
+            datumRacuna: "",
+            vrednostRobe: "",
+            vrednostUsluga: "",
+            vrednostRobeUsluga: "",
+            ukupanRabat: "",
+            ukupanPorez: "",
+            oznakaValute: "",
+            iznosZaUplatu: "",
+            uplataNaRacun: "",
+            datumValute: "",
+            stavkeFakture: []
+        }
+
     }
 
 
-    $scope.invoice ={
-        idPoruke: "",
-        nazivDobavljaca: "",
-        adresaDobavljaca: "",
-        pibDobavljaca: "",
-        nazivKupca: "",
-        adresaKupca: "",
-        pibKupca: "",
-        brojRacuna: "",
-        datumRacuna: "",
-        vrednostRobe: "",
-        vrednostUsluga: "",
-        ukupnoRobaUsluga: "",
-        ukupanRabat: "",
-        ukupanPorez: "",
-        oznakaValute: "",
-        iznosZaUplatu: "",
-        uplataNaRacuna: "",
-        datumValute: "",
-        items: []
-    }
-
+    initialiseInvoice();
 
     $scope.addItem = function () {
 
-        if($scope.item.redniBroj === undefined){
+        if($scope.item.redniBroj === undefined || $scope.item.redniBroj === ""){
             return;
         }
 
-        for(var i in $scope.invoice.items){
-            if($scope.invoice.items[i].redniBroj === $scope.item.redniBroj){
+        for(var i in $scope.invoice.stavkeFakture){
+            if($scope.invoice.stavkeFakture[i].redniBroj === $scope.item.redniBroj){
                 return;
             }
         }
 
-        $scope.invoice.items.push(angular.copy($scope.item));
+        $scope.invoice.stavkeFakture.push(angular.copy($scope.item));
 
     }
 
     $scope.saveInvoice = function () {
 
+        if($scope.invoice.idPoruke === undefined || $scope.invoice.idPoruke === ""){
+            return;
+        }
+
+        factory.createInvoice($scope.invoice).then(function success(response) {
+            response.data.datumRacuna = new Date(response.data.datumRacuna);
+            response.data.datumValute = new Date(response.data.datumValute);
+
+            $scope.invoices.push(response.data);
+            $scope.showInvoiceForm(!$scope.invoiceFormShow);
+        });
+
+    }
+
+    $scope.sendInvoice = function (invoice) {
+        factory.sendInvoice(invoice);
+    }
+
+    $scope.details = function (invoice) {
+        $scope.showInvoiceForm(!$scope.invoiceFormShow);
+        $scope.showDetails = true;
+
+        $scope.invoice = invoice;
+
+    }
+
+    $scope.itemDetails = function(item){
+        $scope.showItemDetails = true;
+        $scope.item = item;
     }
 
     $scope.deleteItem = function (item) {
         $scope.invoice.items.splice($scope.invoice.items.indexOf(item), 1);
     }
+
+    $scope.deleteInvoice = function(invoice){
+        alert("NOT IMPLEMENTED");
+    }
+
+    $scope.getCreatedInvoice = function () {
+        factory.getCreatedInvoice().then(function success(response) {
+            $scope.invoices = response.data;
+        })
+    }
     
+    $scope.addItemButton = function(){
+        $scope.showItemDetails = false;
+    }
+
     $scope.showInvoiceForm = function (flag) {
         $scope.invoiceFormShow = flag;
+        $scope.showDetails = false;
+
+        initialiseInvoice();
+
         if(flag){
             $scope.invoiceCreateButton = "Odustani";
         }else{
             $scope.invoiceCreateButton = "Kreiraj Fakturu";
         }
     }
+
+    
+    // POSlATI
+    $scope.sentInvoices = [];
+
+    $scope.getSentInvoice = function () {
+        factory.getSentInvoice().then(function success(response) {
+            $scope.sentInvoices = response.data;
+        })
+    }
+
+    // PRIMLJENI
+    $scope.receivedInvoices = [];
+
+    $scope.getReceived = function () {
+        factory.getReceivedInvoice().then(function success(response) {
+            $scope.receivedInvoices = response.data;
+        })
+    }
+
 
 
 }]);

@@ -1,5 +1,6 @@
 package com.firma.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +17,7 @@ import java.math.BigDecimal;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class StavkaFaktura {
 
     @Id
@@ -23,19 +25,20 @@ public class StavkaFaktura {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "idFakture")
+    @JoinColumn(name = "id_fakture")
     private Faktura faktura;
 
     @NotNull
     private int redniBroj;
 
-    @Column(length = 120)
-    @Size(max = 120)
+   @Column(length = 120)
+   @Size(max = 120)
     private String nazivRobeUsluge;
 
     @Digits(integer = 10, fraction = 2)
     @NotNull
     private BigDecimal kolicina;
+
 
     @Column(length = 6)
     @Size(max = 6)
@@ -65,7 +68,5 @@ public class StavkaFaktura {
     @Digits(integer = 12, fraction = 2)
     @NotNull
     private BigDecimal ukupanPorez;
-
-
 
 }

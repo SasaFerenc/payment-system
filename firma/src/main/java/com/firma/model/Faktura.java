@@ -1,5 +1,6 @@
 package com.firma.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,9 +8,11 @@ import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Predrag on 6/26/17.
@@ -18,14 +21,15 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Faktura {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "faktura")
-    private List<StavkaFaktura> stavkeFakture;
+    @OneToMany(mappedBy = "faktura", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<StavkaFaktura> stavkeFakture;
 
     @Column(length = 50)
     @Size(max = 50)

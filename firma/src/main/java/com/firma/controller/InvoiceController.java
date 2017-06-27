@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by Predrag on 6/25/17.
@@ -16,6 +17,7 @@ import java.util.List;
 @RequestMapping("/invoices")
 public class InvoiceController {
 
+    private static Logger loger = Logger.getLogger("S");
     private InvoiceService invoiceService;
 
     @Autowired
@@ -29,6 +31,7 @@ public class InvoiceController {
             consumes = "application/json",
             produces = "application/json"
     )
+
     @ResponseBody
     public Faktura createInvoice(@RequestBody Faktura faktura){
 
