@@ -80,8 +80,7 @@
 					<sources>
 						<source>src/main/resources/schemas</source>
 					</sources>
-					<outputDirectory>src/main/java</outputDirectory>
-					<packageName>com.firma.models</packageName>
+					<packageName>com.firma.types</packageName>
 					<clearOutputDir>false</clearOutputDir>
 				</configuration>
 			</plugin>

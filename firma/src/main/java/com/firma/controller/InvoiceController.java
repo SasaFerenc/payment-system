@@ -1,6 +1,8 @@
-package com.firma.controllers;
+package com.firma.controller;
 
-import com.firma.models.Faktura;
+import com.firma.service.InvoiceService;
+import com.firma.model.Faktura;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,25 +16,32 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/invoices")
-public class InvoiceService {
+public class InvoiceController {
+
+    private InvoiceService invoiceService;
+
+    @Autowired
+    public InvoiceController(InvoiceService invoiceService){
+        this.invoiceService = invoiceService;
+    }
+
 
     @RequestMapping(
             method = RequestMethod.POST,
-            consumes = "application/xml",
+            consumes = "application/json",
             produces = "application/json"
     )
     public Faktura createInvoice(Faktura faktura){
-
-        return null;
+        return invoiceService.save(faktura);
     }
 
     @RequestMapping(
             value = "/send",
             method = RequestMethod.POST,
-            consumes = "application.xml"
+            consumes = "application/json"
     )
     public void sendInvoice(Faktura faktura){
-
+        invoiceService.sentInvoice(faktura);
     }
 
     @RequestMapping(
@@ -42,7 +51,7 @@ public class InvoiceService {
     )
     public Faktura getInvoice(@PathVariable String id){
 
-        return null;
+        return invoiceService.getInvoiceById(Long.parseLong(id));
     }
 
     @RequestMapping(
@@ -52,7 +61,7 @@ public class InvoiceService {
     )
     public List<Faktura> getReceivedInvoices(){
 
-        return null;
+        return invoiceService.getReceived(true);
     }
 
     @RequestMapping(
@@ -62,6 +71,6 @@ public class InvoiceService {
     )
     public List<Faktura> getSentInvoices(){
 
-        return null;
+        return invoiceService.getSent(true);
     }
 }
