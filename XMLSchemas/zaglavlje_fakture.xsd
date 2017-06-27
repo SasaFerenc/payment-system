@@ -6,27 +6,26 @@
 
     <xs:import namespace="http://www.paymentsystem.rs/schemas/tipovi_podataka"
         schemaLocation="tipovi_podataka.xsd"/>
-        <xs:complexType name="Zaglavlje_fakture">
-            <xs:sequence>
-                <xs:element name="id_poruke" type="t:String_50"/>
-                <xs:element name="naziv_dobavljaca" type="t:String_255"/>
-                <xs:element name="adresa_dobavljaca" type="t:String_255"/>
-                <xs:element name="pib_dobavljaca" type="t:String_11"/>
-                <xs:element name="naziv_kupca" type="t:String_55"/>
-                <xs:element name="adresa_kupca" type="t:String_55"/>
-                <xs:element name="pib_kupca" type="t:String_11"/>
-                <xs:element name="broj_racuna" type="t:Number_6"/>
-                <xs:element name="datum_racuna" type="xs:date"/>
-                <xs:element name="vrednost_robe" type="t:Decimal_15"/>
-                <xs:element name="vrednost_usluga" type="t:Decimal_15"/>
-                <xs:element name="ukupno_roba_usluga" type="t:Decimal_15"/>
-                <xs:element name="ukupan_rabat" type="t:Decimal_15"/>
-                <xs:element name="ukupan_porez" type="t:Decimal_15"/>
-                <xs:element name="oznaka_valute" type="t:String_3"/>
-                <xs:element name="iznos_za_uplatu" type="t:Decimal_15"/>
-                <xs:element name="uplata_na_racuna" type="t:String_18"/>
-                <xs:element name="datum_valute" type="xs:date"/>
-            </xs:sequence>
-        </xs:complexType>
-
+    <xs:complexType name="Zaglavlje_fakture">
+        <xs:sequence>
+            <xs:element name="id_poruke" type="t:String_50"/>
+            <xs:element name="naziv_dobavljaca" type="t:String_255"/>
+            <xs:element name="adresa_dobavljaca" type="t:String_255"/>
+            <xs:element name="pib_dobavljaca" type="t:String_11"/>
+            <xs:element name="naziv_kupca" type="t:String_55"/>
+            <xs:element name="adresa_kupca" type="t:String_55"/>
+            <xs:element name="pib_kupca" type="t:String_11"/>
+            <xs:element name="broj_racuna" type="t:Number_6"/>
+            <xs:element name="datum_racuna" type="xs:date"/>
+            <xs:element name="vrednost_robe" type="t:Decimal_15"/>
+            <xs:element name="vrednost_usluga" type="t:Decimal_15"/>
+            <xs:element name="ukupno_roba_usluga" type="t:Decimal_15"/>
+            <xs:element name="ukupan_rabat" type="t:Decimal_15"/>
+            <xs:element name="ukupan_porez" type="t:Decimal_15"/>
+            <xs:element name="oznaka_valute" type="t:String_3"/>
+            <xs:element name="iznos_za_uplatu" type="t:Decimal_15"/>
+            <xs:element name="uplata_na_racuna" type="t:String_18"/>
+            <xs:element name="datum_valute" type="xs:date"/>
+        </xs:sequence>
+    </xs:complexType>
 </xs:schema>

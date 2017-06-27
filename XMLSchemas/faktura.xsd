@@ -6,7 +6,7 @@
 
     <xs:import namespace="http://www.paymentsystem.rs/schemas/zaglavlje_fakture"
         schemaLocation="zaglavlje_fakture.xsd"/>
-      <xs:import namespace="http://www.paymentsystem.rs/schema/stavka_fakture"
+    <xs:import namespace="http://www.paymentsystem.rs/schemas/stavka_fakture"
         schemaLocation="stavka_fakture.xsd"/>
     <xs:element name="faktura">
         <xs:complexType>
