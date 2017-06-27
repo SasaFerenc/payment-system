@@ -17,4 +17,5 @@ public class Bank extends Base {
     private String accountNumber;
     private BigDecimal accountBalance;
     private String swiftCode;
+    private String url;
 }
