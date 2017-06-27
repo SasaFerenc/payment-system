@@ -1,8 +1,7 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
              targetNamespace="http://www.paymentsystem.rs/services"
              xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
-
 
     <types>
         <schema targetNamespace="http://wwww.paymentsystem.rs/schemas"
@@ -20,13 +19,6 @@
             <import schemaLocation="../schemas/stavka_preseka.xsd" namespace="http://www.paymentsystem.rs/schemas/stavka_preseka"/>
             <import schemaLocation="../schemas/zaglavlje_preseka.xsd" namespace="http://www.paymentsystem.rs/schemas/zaglavlje_preseka"/>
             <import schemaLocation="../schemas/zahtev_za_izvod.xsd" namespace="http://www.paymentsystem.rs/schemas/zahtev_za_izvod"/>
-            <element name="StringResponse">
-                <complexType>
-                    <sequence>
-                        <element type="string" name="message" />
-                    </sequence>
-                </complexType>
-            </element>
         </schema>
     </types>
 

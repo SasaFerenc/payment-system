@@ -22,10 +22,10 @@ public class CentralBankClient {
     @Autowired
     private WebServiceTemplate webServiceTemplate;
 
-    //@PostConstruct
+    /*@PostConstruct
     public void init() {
         Mt900 res = sendMT103("ooo");
-    }
+    }*/
 
     public Mt900 sendMT103(String id) {
         ObjectFactory objectFactory = new ObjectFactory();
