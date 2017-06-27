@@ -27,7 +27,7 @@ public class PaymentRequestController {
 
     @RequestMapping(
             method = RequestMethod.POST,
-            consumes = "application/xml",
+            consumes = "application/json",
             produces = "application/json"
     )
     public Nalog createPayment(Nalog nalog){
@@ -54,12 +54,11 @@ public class PaymentRequestController {
     }
 
     @RequestMapping(
-            value = "/send",
-            method = RequestMethod.POST,
-            consumes = "application/json"
+            value = "nalog/send",
+            method = RequestMethod.GET
     )
-    public void sendPayment(Nalog nalog){
+    public void sendPayment(){
         //TODO: transform nalog to generated nalog
-        //paymentService.send();
+        paymentService.send();
     }
 }

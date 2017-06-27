@@ -60,4 +60,12 @@ public class InvoiceServiceImpl implements InvoiceService{
     public List<Faktura> getReceived(Boolean received) {
         return invoiceRepository.findByRecieved(received);
     }
+
+    @Override
+    public String recieveInvoice(Faktura faktura) {
+        faktura.setRecieved(true);
+        faktura.setSent(false);
+        invoiceRepository.save(faktura);
+        return "Successfuly received";
+    }
 }

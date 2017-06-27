@@ -22,5 +22,7 @@ public interface InvoiceService {
 
     List<Faktura> getReceived(Boolean received);
 
+    String recieveInvoice(Faktura faktura);
+
 
 }

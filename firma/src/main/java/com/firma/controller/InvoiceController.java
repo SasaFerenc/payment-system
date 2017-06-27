@@ -45,6 +45,15 @@ public class InvoiceController {
     }
 
     @RequestMapping(
+            value = "/receive",
+            method = RequestMethod.POST,
+            consumes = "application/json"
+    )
+    public String receiveInvoice(Faktura faktura){
+        return invoiceService.recieveInvoice(faktura);
+    }
+
+    @RequestMapping(
             value = "/show/{id}",
             method = RequestMethod.GET,
             produces = "application/json"

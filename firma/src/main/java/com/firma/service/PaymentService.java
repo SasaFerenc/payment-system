@@ -15,6 +15,6 @@ public interface PaymentService {
 
     List<Nalog> getAllPayments();
 
-    void send(com.firma.types.Nalog nalog);
+    void send();
 
 }
