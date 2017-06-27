@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<definitions targetNamespace="http://www.paymentsystem.rs/central-bank/services"
+<definitions targetNamespace="http://www.paymentsystem.rs/services"
              xmlns="http://schemas.xmlsoap.org/wsdl/"
              xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
 
     <types>
-        <schema targetNamespace="http://www.paymentsystem.rs/central-bank"
+        <schema targetNamespace="http://www.paymentsystem.rs/schemas"
                 xmlns="http://www.w3.org/2001/XMLSchema"
                 attributeFormDefault="qualified"
                 elementFormDefault="qualified"
@@ -14,7 +14,6 @@
             <import schemaLocation="../schemas/mt103.xsd" namespace="http://www.paymentsystem.rs/schemas/mt103" />
             <import schemaLocation="../schemas/mt900.xsd" namespace="http://www.paymentsystem.rs/schemas/mt900" />
             <import schemaLocation="../schemas/mt910.xsd" namespace="http://www.paymentsystem.rs/schemas/mt910" />
-
         </schema>
     </types>
 

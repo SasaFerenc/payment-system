@@ -19,7 +19,7 @@ public class RtgsRequestEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "mt103")
     @ResponsePayload
-    public Mt900 handleMt103Request(@RequestPayload Mt103 request) {
+    public Mt900 handleMt103Request(@RequestPayload Mt103 request) throws Exception {
         return rtgsService.processMt103Request(request);
     }
 }

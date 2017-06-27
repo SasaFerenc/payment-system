@@ -5,5 +5,5 @@ import com.centralnabanka.types.Mt900;
 
 public interface RtgsService {
 
-    Mt900 processMt103Request(Mt103 request);
+    Mt900 processMt103Request(Mt103 request) throws Exception;
 }

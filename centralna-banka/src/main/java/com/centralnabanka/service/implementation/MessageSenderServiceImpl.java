@@ -1,44 +1,41 @@
 package com.centralnabanka.service.implementation;
 
+import com.centralnabanka.model.Bank;
+import com.centralnabanka.repository.BankRepository;
+import com.centralnabanka.service.MessageConverterService;
 import com.centralnabanka.service.MessageSenderService;
-import com.centralnabanka.types.Mt102;
-import com.centralnabanka.types.Mt103;
-import com.centralnabanka.types.Mt900;
-import com.centralnabanka.types.ObjectFactory;
+import com.centralnabanka.ws.client.BankClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
+import org.springframework.ws.soap.SoapFaultException;
 
 @Service
 public class MessageSenderServiceImpl extends WebServiceGatewaySupport implements MessageSenderService {
 
+    @Autowired
+    private BankRepository bankRepository;
+
+    @Autowired
+    private BankClient bankClient;
+
+    @Autowired
+    private MessageConverterService messageConverter;
 
     @Override
-    public void sendMessagesToDebtor(Mt102 message) {
+    public void sendMessagesToDebtor(Object message) throws Exception {
+        String bankUrl = bankUrl(message);
 
+        bankClient.sendMessage(message, bankUrl);
+        bankClient.sendMessage(messageConverter.convertToMt910(message), bankUrl);
     }
 
-    @Override
-    public void sendMessagesToDebtor(Mt103 message) {
+    private String bankUrl(Object message) throws Exception {
+        String swiftCode = (String) message.getClass().getMethod("getSwiftCode", new Class<?>[] {}).invoke(message);
 
-    }
+        Bank bank = bankRepository.findBySwiftCode(swiftCode).orElseThrow(() ->
+                new SoapFaultException("Bank with SWIFT code: " + swiftCode + " not found"));
 
-    @Override
-    public Mt900 createMt900(Mt102 message) {
-        return null;
-    }
-
-    @Override
-    public Mt900 createMt900(Mt103 message) {
-        Mt900 response = new ObjectFactory().createMt900();
-
-        response.setIdPoruke(message.getIdPoruke());
-        response.setSwiftKodDuznika(message.getSwiftKodDuznika());
-        response.setObracunskiRacunDuznika(message.getObracunskiRacunDuznika());
-        response.setIdPorukeNaloga("MT103-" + message.getIdPoruke());
-        response.setDatumValute(message.getPodaciOPlacanju().getDatumValute());
-        response.setIznos(message.getPodaciOPlacanju().getIznos());
-        response.setSifraValute(message.getSifraValute());
-
-        return  response;
+        return bank.getUrl();
     }
 }

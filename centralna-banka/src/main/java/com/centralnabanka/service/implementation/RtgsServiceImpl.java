@@ -2,6 +2,7 @@ package com.centralnabanka.service.implementation;
 
 import com.centralnabanka.model.Bank;
 import com.centralnabanka.repository.BankRepository;
+import com.centralnabanka.service.MessageConverterService;
 import com.centralnabanka.service.MessageSenderService;
 import com.centralnabanka.service.RtgsService;
 import com.centralnabanka.types.Mt103;
@@ -17,22 +18,22 @@ import java.math.BigDecimal;
 @Service
 public class RtgsServiceImpl extends WebServiceGatewaySupport implements RtgsService {
 
+    @Autowired
     private BankRepository bankRepository;
+
+    @Autowired
     private MessageSenderService messageSender;
 
     @Autowired
-    public RtgsServiceImpl(BankRepository bankRepository, MessageSenderService messageSender) {
-        this.bankRepository = bankRepository;
-        this.messageSender = messageSender;
-    }
+    private MessageConverterService messageConverter;
 
     @Override
-    public Mt900 processMt103Request(Mt103 request) {
+    public Mt900 processMt103Request(Mt103 request) throws Exception {
         transferMoney(request);
 
         messageSender.sendMessagesToDebtor(request);
 
-        return messageSender.createMt900(request);
+        return messageConverter.convertToMt900(request);
     }
 
     @Transactional
