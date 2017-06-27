@@ -119,4 +119,11 @@
             <xs:pattern value="[0-9]{3}[0-9]{13}[0-9]{2}"/>
         </xs:restriction>
     </xs:simpleType>
+    <xs:element name="StringResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element type="xs:string" name="message" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>
