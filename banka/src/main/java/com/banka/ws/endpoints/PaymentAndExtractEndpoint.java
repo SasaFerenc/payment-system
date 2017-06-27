@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
+import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 @Endpoint
 public class PaymentAndExtractEndpoint {
@@ -16,6 +17,7 @@ public class PaymentAndExtractEndpoint {
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentAndExtractEndpoint.class);
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "nalog")
+    @ResponsePayload
     public StringResponse handlePaymentRequest(@RequestPayload Nalog nalog) {
         LOGGER.info("Nalog za uplatu: " + nalog.getIdPoruke());
         StringResponse response = new StringResponse();
