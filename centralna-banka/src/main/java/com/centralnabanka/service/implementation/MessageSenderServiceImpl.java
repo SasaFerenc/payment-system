@@ -31,7 +31,7 @@ public class MessageSenderServiceImpl extends WebServiceGatewaySupport implement
     }
 
     private String bankUrl(Object message) throws Exception {
-        String swiftCode = (String) message.getClass().getMethod("getSwiftCode", new Class<?>[] {}).invoke(message);
+        String swiftCode = (String) message.getClass().getMethod("getSwiftKodDuznika", new Class<?>[] {}).invoke(message);
 
         Bank bank = bankRepository.findBySwiftCode(swiftCode).orElseThrow(() ->
                 new SoapFaultException("Bank with SWIFT code: " + swiftCode + " not found"));
