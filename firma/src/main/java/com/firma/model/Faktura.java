@@ -99,5 +99,12 @@ public class Faktura {
     @Size(max = 18)
     private String uplataNaRacun;
 
+    @Column
     private Date datumValute;
+
+    @Column
+    private Boolean sent;
+
+    @Column
+    private Boolean recieved;
 }

@@ -16,7 +16,7 @@ public class ClientConfig {
     Jaxb2Marshaller jaxb2Marshaller() {
 
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
-        marshaller.setContextPath("com.firma.models");
+        marshaller.setContextPath("com.firma.types");
         return marshaller;
     }
 
