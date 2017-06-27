@@ -16,13 +16,13 @@ public interface InvoiceService {
 
     List<Faktura> getAll();
 
-    void sentInvoice(Faktura faktura);
+    String sentInvoice(Faktura faktura);
 
     List<Faktura> getSent(Boolean sent);
 
     List<Faktura> getReceived(Boolean received);
 
-    String recieveInvoice(Faktura faktura);
+    String receiveInvoice(Faktura faktura);
 
 
 }

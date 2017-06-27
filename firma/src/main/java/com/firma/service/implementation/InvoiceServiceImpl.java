@@ -45,10 +45,13 @@ public class InvoiceServiceImpl implements InvoiceService{
     }
 
     @Override
-    public void sentInvoice(Faktura faktura) {
+    public String sentInvoice(Faktura faktura) {
         //TODO: find other firm's url and send message
         RestTemplate template = new RestTemplate();
         ResponseEntity<String> response = template.postForEntity("", faktura, String.class);
+        faktura.setSent(true);
+        invoiceRepository.save(faktura);
+        return response.getBody();
     }
 
     @Override
@@ -62,7 +65,7 @@ public class InvoiceServiceImpl implements InvoiceService{
     }
 
     @Override
-    public String recieveInvoice(Faktura faktura) {
+    public String receiveInvoice(Faktura faktura) {
         faktura.setRecieved(true);
         faktura.setSent(false);
         invoiceRepository.save(faktura);

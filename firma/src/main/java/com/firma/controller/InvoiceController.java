@@ -4,9 +4,7 @@ import com.firma.service.InvoiceService;
 import com.firma.model.Faktura;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,7 +29,8 @@ public class InvoiceController {
             consumes = "application/json",
             produces = "application/json"
     )
-    public Faktura createInvoice(Faktura faktura){
+    @ResponseBody
+    public Faktura createInvoice(@RequestBody Faktura faktura){
         return invoiceService.save(faktura);
     }
 
@@ -40,8 +39,8 @@ public class InvoiceController {
             method = RequestMethod.POST,
             consumes = "application/json"
     )
-    public void sendInvoice(Faktura faktura){
-        invoiceService.sentInvoice(faktura);
+    public String sendInvoice(@RequestBody Faktura faktura){
+        return invoiceService.sentInvoice(faktura);
     }
 
     @RequestMapping(
@@ -49,8 +48,8 @@ public class InvoiceController {
             method = RequestMethod.POST,
             consumes = "application/json"
     )
-    public String receiveInvoice(Faktura faktura){
-        return invoiceService.recieveInvoice(faktura);
+    public String receiveInvoice(@RequestBody Faktura faktura){
+        return invoiceService.receiveInvoice(faktura);
     }
 
     @RequestMapping(
@@ -58,6 +57,7 @@ public class InvoiceController {
             method = RequestMethod.GET,
             produces = "application/json"
     )
+    @ResponseBody
     public Faktura getInvoice(@PathVariable String id){
 
         return invoiceService.getInvoiceById(Long.parseLong(id));
@@ -68,6 +68,7 @@ public class InvoiceController {
             method = RequestMethod.GET,
             produces = "application/json"
     )
+    @ResponseBody
     public List<Faktura> getReceivedInvoices(){
 
         return invoiceService.getReceived(true);
@@ -78,6 +79,7 @@ public class InvoiceController {
             method = RequestMethod.GET,
             produces = "application/json"
     )
+    @ResponseBody
     public List<Faktura> getSentInvoices(){
 
         return invoiceService.getSent(true);
