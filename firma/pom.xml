@@ -43,9 +43,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
+			<groupId>net.sourceforge.schemacrawler</groupId>
+			<artifactId>schemacrawler-postgresql</artifactId>
+			<version>9.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
