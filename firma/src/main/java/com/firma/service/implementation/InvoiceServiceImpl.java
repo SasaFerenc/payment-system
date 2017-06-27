@@ -61,14 +61,19 @@ public class InvoiceServiceImpl implements InvoiceService{
 
     @Override
     public List<Faktura> getReceived(Boolean received) {
-        return invoiceRepository.findByRecieved(received);
+        return invoiceRepository.findByReceived(received);
     }
 
     @Override
     public String receiveInvoice(Faktura faktura) {
-        faktura.setRecieved(true);
+        faktura.setReceived(true);
         faktura.setSent(false);
         invoiceRepository.save(faktura);
         return "Successfuly received";
+    }
+
+    @Override
+    public List<Faktura> getCreated() {
+        return invoiceRepository.findBySentAndReceived(false, false);
     }
 }

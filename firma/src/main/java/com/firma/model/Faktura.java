@@ -106,5 +106,5 @@ public class Faktura {
     private Boolean sent;
 
     @Column
-    private Boolean recieved;
+    private Boolean received;
 }

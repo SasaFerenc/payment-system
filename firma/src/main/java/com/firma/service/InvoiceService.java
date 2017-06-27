@@ -24,5 +24,7 @@ public interface InvoiceService {
 
     String receiveInvoice(Faktura faktura);
 
+    List<Faktura> getCreated();
+
 
 }

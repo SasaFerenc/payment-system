@@ -18,6 +18,8 @@ public interface InvoiceRepository extends JpaRepository<Faktura, Long> {
 
     List<Faktura> findBySent(Boolean sent);
 
-    List<Faktura> findByRecieved(Boolean recieved);
+    List<Faktura> findByReceived(Boolean received);
+
+    List<Faktura> findBySentAndReceived(Boolean sent, Boolean received);
 
 }

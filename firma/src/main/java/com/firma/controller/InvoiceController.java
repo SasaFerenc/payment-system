@@ -31,7 +31,20 @@ public class InvoiceController {
     )
     @ResponseBody
     public Faktura createInvoice(@RequestBody Faktura faktura){
+
+        faktura.setSent(false);
+        faktura.setReceived(false);
         return invoiceService.save(faktura);
+    }
+
+    @RequestMapping(
+            value = "/all",
+            method = RequestMethod.GET,
+            produces = "application/json"
+    )
+    @ResponseBody
+    public List<Faktura> getAllInvoices(){
+        return invoiceService.getCreated();
     }
 
     @RequestMapping(

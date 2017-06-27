@@ -1,5 +1,6 @@
 package com.firma.service.implementation;
 
+import com.firma.types.Presek;
 import com.firma.types.ZahtevZaIzvod;
 import com.firma.service.BankStatementService;
 import com.firma.ws.client.FirmClient;
@@ -22,8 +23,8 @@ public class BankStatementServiceImpl implements BankStatementService {
     }
 
     @Override
-    public void sendStatementRequest(ZahtevZaIzvod zahtev) {
+    public Presek sendStatementRequest(ZahtevZaIzvod zahtev) {
 
-        firmClient.getBankStatement(zahtev);
+        return firmClient.getBankStatement(zahtev);
     }
 }
