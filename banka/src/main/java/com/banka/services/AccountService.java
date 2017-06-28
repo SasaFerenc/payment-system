@@ -10,5 +10,6 @@ public interface AccountService {
     List<Account> findByFirm(Long id);
     Account save(Account account);
     void delete(Long id);
+    List<Account> findByCountNumber(String number);
 
 }

@@ -32,6 +32,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public List<Account> findByCountNumber(String number) {
+        return accountRepository.findByCountNumber(number);
+    }
+
+    @Override
     public void delete(Long id) {
         accountRepository.delete(id);
     }

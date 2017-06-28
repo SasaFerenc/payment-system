@@ -4,11 +4,12 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Entity
 @Data
 @Table(name = "account")
-public class Account implements Serializable {
+public class Account {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -19,10 +20,10 @@ public class Account implements Serializable {
     private String countNumber;
 
     @Column(name = "reserved")
-    private double reserved;
+    private BigDecimal reserved;
 
     @Column(name = "total")
-    private double total;
+    private BigDecimal total;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "firm_id", referencedColumnName = "firm_id")
