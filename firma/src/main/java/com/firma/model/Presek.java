@@ -13,10 +13,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by predrag on 6/26/17.
- */
-
 @Entity
 @Data
 @NoArgsConstructor

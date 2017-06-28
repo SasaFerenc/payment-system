@@ -9,10 +9,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
-/**
- * Created by Predrag on 6/26/17.
- */
-
 @Entity
 @Data
 @NoArgsConstructor

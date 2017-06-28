@@ -13,10 +13,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * Created by Predrag on 6/26/17.
- */
-
 @Controller
 @RequestMapping(value = "/payments")
 public class PaymentRequestController {

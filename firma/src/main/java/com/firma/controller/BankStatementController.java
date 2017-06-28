@@ -18,10 +18,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by predrag on 6/28/17.
- */
-
 @Controller
 @RequestMapping("statement")
 public class BankStatementController {

@@ -5,9 +5,6 @@ import com.firma.model.Nalog;
 import java.nio.file.NotLinkException;
 import java.util.List;
 
-/**
- * Created by Predrag on 6/27/17.
- */
 public interface PaymentService {
 
     Nalog createPayment(Nalog nalog);

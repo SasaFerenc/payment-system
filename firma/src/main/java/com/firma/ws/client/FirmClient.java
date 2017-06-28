@@ -10,10 +10,6 @@ import org.springframework.ws.client.core.WebServiceTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Created by Predrag on 6/26/17.
- */
-
 @Component
 public class FirmClient {
 

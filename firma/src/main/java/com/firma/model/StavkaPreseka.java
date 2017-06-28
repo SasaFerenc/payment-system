@@ -12,10 +12,6 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
 
-/**
- * Created by Predrag on 6/26/17.
- */
-
 @Entity
 @Data
 @NoArgsConstructor
