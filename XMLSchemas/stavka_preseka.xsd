@@ -2,10 +2,10 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
     targetNamespace="http://www.paymentsystem.rs/schemas/stavka_preseka"
     xmlns="http://www.paymentsystem.rs/schemas/stavka_preseka"
-    xmlns:pp="http://paymentsystem.rs/schemas/podaci_o_placanju"
+    xmlns:pp="http://www.paymentsystem.rs/schemas/podaci_o_placanju"
     xmlns:t="http://www.paymentsystem.rs/schemas/tipovi_podataka">
 
-    <xs:import namespace="http://paymentsystem.rs/schemas/podaci_o_placanju"
+    <xs:import namespace="http://www.paymentsystem.rs/schemas/podaci_o_placanju"
         schemaLocation="podaci_o_placanju.xsd"/>
     <xs:import namespace="http://www.paymentsystem.rs/schemas/tipovi_podataka"
         schemaLocation="tipovi_podataka.xsd"/>

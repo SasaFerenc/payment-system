@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
     targetNamespace="http://www.paymentsystem.rs/schemas/mt102" xmlns="http://www.paymentsystem.rs/schemas/mt102"
-    xmlns:pp="http://paymentsystem.rs/schemas/podaci_o_placanju"
+    xmlns:pp="http://www.paymentsystem.rs/schemas/podaci_o_placanju"
     xmlns:t="http://www.paymentsystem.rs/schemas/tipovi_podataka">
 
     <xs:import namespace="http://www.paymentsystem.rs/schemas/tipovi_podataka"
         schemaLocation="tipovi_podataka.xsd"/>
-    <xs:import namespace="http://paymentsystem.rs/schemas/podaci_o_placanju"
+    <xs:import namespace="http://www.paymentsystem.rs/schemas/podaci_o_placanju"
         schemaLocation="podaci_o_placanju.xsd"/>
     <xs:element name="mt102">
         <xs:complexType>
@@ -20,9 +20,10 @@
                 <xs:element name="sifra_valute" type="t:String_3"/>
                 <xs:element name="datum_valute" type="xs:date"/>
                 <xs:element name="datum" type="xs:date"/>
-                <xs:element name="pojedinacna_placanja">
+                <xs:element name="pojedinacna_placanja" maxOccurs="unbounded">
                     <xs:complexType>
                         <xs:sequence>
+                            <xs:element name="id_naloga" type="t:String_50" />
                             <xs:element name="podaci_o_placanju" type="pp:podaci_o_placanju"/>
                             <xs:element name="sifra_valute" type="t:String_3"/>
                         </xs:sequence>
