@@ -36,6 +36,16 @@
                         <input class="form-control" id="idPoruke" type="text" maxlength="50" ng-model="warrant.idPoruke" ng-disabled="showWarrantDetails"/>
                     </div>
                 </div>
+
+                <hr/>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="poFakturi">Po Faktura: </label>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="poFakturi" ng-change="selectedWarrant()" ng-model="Combo.poFakturi" ng-options="invoice.idPoruke for invoice in receivedInvoices" ng-disabled="showWarrantDetails">
+                        </select>
+                    </div>
+                </div>
+
                 <hr/>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="duznik">Duznik (Nalogodavac): </label>
@@ -145,7 +155,7 @@
 
             </form>
             <hr/>
-            <button ng-if="!showWarrantDetails" type="button" class="btn btn-sm btn-success" ng-click="saveWarrant()" data-dismiss="modal">Save changes</button>
+            <button ng-if="!showWarrantDetails" type="button" class="btn btn-sm btn-success" ng-click="saveWarrant()" data-dismiss="modal">Sacuvaj</button>
             <hr/>
         </div>
 

@@ -8,6 +8,10 @@ app.controller('warrant', ['$scope', 'factory' , function ($scope, factory){
 
     $scope.warrants = [];
 
+    $scope.Combo = {
+        poFakturi : null
+    }
+
     var initialiseWarrant = function () {
 
         $scope.warrant = {
@@ -81,11 +85,23 @@ app.controller('warrant', ['$scope', 'factory' , function ($scope, factory){
 
         if(flag){
             $scope.warrantCreateButton = "Odustani";
+            getReceived();
         }else{
             $scope.warrantCreateButton = "Kreiraj Fakturu";
         }
     }
 
 
+    $scope.receivedInvoices = [];
 
+    var getReceived = function () {
+        factory.getCreatedInvoice().then(function success(response) {
+            $scope.receivedInvoices = response.data;
+        })
+    }
+
+    $scope.selectedWarrant = function () {
+        $scope.warrant.iznos = $scope.Combo.poFakturi.iznosZaUplatu;
+    }
+    
 }]);
