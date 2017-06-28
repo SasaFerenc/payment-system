@@ -58,4 +58,7 @@ public class PaymentRequest implements Serializable {
     @Column(name = "amount")
     private BigDecimal amount;
 
+    @Column(name = "settled")
+    private boolean settled;
+
 }
