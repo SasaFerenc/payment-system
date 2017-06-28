@@ -18,6 +18,6 @@ public class TempEndpoint {
 
     @RequestMapping(method = RequestMethod.GET, value = "/posalji")
     public void getNesto() {
-        centralBankClient.sendMT103("ooo");
+        //centralBankClient.sendMT103("ooo");
     }
 }

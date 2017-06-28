@@ -27,8 +27,8 @@ public class CentralBankClient {
         Mt900 res = sendMT103("ooo");
     }*/
 
-    public Mt900 sendMT103(String id) {
-        ObjectFactory objectFactory = new ObjectFactory();
+    public Mt900 sendMT103(Mt103 mt103) {
+       /* ObjectFactory objectFactory = new ObjectFactory();
         Mt103 mt103 = objectFactory.createMt103();
 
         mt103.setIdPoruke(id);
@@ -52,7 +52,7 @@ public class CentralBankClient {
         mt103.setPodaciOPlacanju(podaciOPlacanju);
         mt103.setSifraValute("a");
         mt103.setSwiftKodDuznika("s");
-        mt103.setSwiftKodPoverioca("d");
+        mt103.setSwiftKodPoverioca("d");*/
 
         Mt900 response = (Mt900) webServiceTemplate.marshalSendAndReceive(mt103);
         LOGGER.info("900 doslo: " + response.getIdPoruke());

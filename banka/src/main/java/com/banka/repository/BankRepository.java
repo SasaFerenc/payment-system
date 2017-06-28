@@ -10,7 +10,7 @@ public interface BankRepository extends JpaRepository<Bank, Long> {
 
     Bank getOne(Long id);
     Bank save(Bank bank);
-    @Query("select b from Bank b where b.accountNumber like '?1%'")
+    @Query("select b from Bank b where b.accountNumber like ?1%")
     Bank findByAccountCode(String accountNumber);
 
 }

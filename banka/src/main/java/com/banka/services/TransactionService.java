@@ -1,10 +1,15 @@
 package com.banka.services;
 
 import com.banka.model.Account;
+import com.banka.model.Bank;
 import com.banka.repository.AccountRepository;
 import com.banka.types.Mt102;
 import com.banka.types.Mt103;
 import com.banka.types.Nalog;
+import com.banka.types.ObjectFactory;
+import com.banka.ws.client.CentralBankClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +20,18 @@ import java.util.List;
 public class TransactionService {
 
     @Autowired
-    AccountRepository accountRepository;
+    AccountService accountService;
+
+    @Autowired
+    BankService bankService;
+
+    @Autowired
+    CentralBankClient centralBankClient;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(TransactionService.class);
 
     public void handleTransaction(Nalog nalog) {
-        List<Account> accountsByNumber = accountRepository.findByCountNumber(nalog.getPodaciOPlacanju().getRacunPoverioca());
+        List<Account> accountsByNumber = accountService.findByCountNumber(nalog.getPodaciOPlacanju().getRacunPoverioca());
         if(accountsByNumber.size() > 0) {
             transactionOnTheSameBank(nalog);
         } else {
@@ -29,19 +42,34 @@ public class TransactionService {
     }
 
     public void transactionOnTheSameBank(Nalog nalog) {
-        Account creditorAccount = accountRepository.findByCountNumber(nalog.getPodaciOPlacanju().getRacunDuznika()).get(0);
-        Account debtorAccount = accountRepository.findByCountNumber(nalog.getPodaciOPlacanju().getRacunPoverioca()).get(0);
+        LOGGER.info("IN SAME BANK");
+        Account creditorAccount = accountService.findByCountNumber(nalog.getPodaciOPlacanju().getRacunDuznika()).get(0);
+        Account debtorAccount = accountService.findByCountNumber(nalog.getPodaciOPlacanju().getRacunPoverioca()).get(0);
         creditorAccount.setTotal(creditorAccount.getTotal().subtract(nalog.getPodaciOPlacanju().getIznos()));
         debtorAccount.setTotal(debtorAccount.getTotal().add(nalog.getPodaciOPlacanju().getIznos()));
 
-        accountRepository.save(creditorAccount);
-        accountRepository.save(debtorAccount);
+        accountService.save(creditorAccount);
+        accountService.save(debtorAccount);
     }
 
     public void sendRtgs(Nalog nalog) {
-        Mt103 mt103 = new Mt103();
+        LOGGER.info("SEND RTGS");
+        ObjectFactory objectFactory = new ObjectFactory();
+        Mt103 mt103 = objectFactory.createMt103();
+        mt103.setIdPoruke(nalog.getIdPoruke());
 
+        String creditorAccountCode = nalog.getPodaciOPlacanju().getRacunDuznika().substring(0,3);
+        Bank creditorBank = bankService.findByAccountCode(creditorAccountCode);
+        String debtorAccountCode = nalog.getPodaciOPlacanju().getRacunPoverioca().substring(0,3);
+        Bank debtorBank = bankService.findByAccountCode(debtorAccountCode);
+
+        mt103.setObracunskiRacunPoverioca(debtorBank.getAccountNumber());
+        mt103.setSwiftKodPoverioca(debtorBank.getSwiftCode());
+        mt103.setObracunskiRacunDuznika(creditorBank.getAccountNumber());
+        mt103.setSwiftKodDuznika(creditorBank.getSwiftCode());
+        mt103.setSifraValute(nalog.getOznakaValute());
         mt103.setPodaciOPlacanju(nalog.getPodaciOPlacanju());
+        centralBankClient.sendMT103(mt103);
     }
 
 }

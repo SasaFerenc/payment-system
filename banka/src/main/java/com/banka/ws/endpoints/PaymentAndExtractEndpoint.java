@@ -30,7 +30,11 @@ public class PaymentAndExtractEndpoint {
     @ResponsePayload
     public StringResponse handlePaymentRequest(@RequestPayload Nalog nalog) {
         LOGGER.info("Nalog za uplatu: " + nalog.getIdPoruke());
-        transactionService.handleTransaction(nalog);
+        try {
+            transactionService.handleTransaction(nalog);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         StringResponse response = new StringResponse();
         response.setMessage("OK");
 
