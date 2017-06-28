@@ -63,6 +63,11 @@ public class TransactionService {
         String debtorAccountCode = nalog.getPodaciOPlacanju().getRacunPoverioca().substring(0,3);
         Bank debtorBank = bankService.findByAccountCode(debtorAccountCode);
 
+        //reserving resources
+        Account creditorAccount = accountService.findByCountNumber(nalog.getPodaciOPlacanju().getRacunDuznika()).get(0);
+        creditorAccount.setReserved((creditorAccount.getReserved()).add(nalog.getPodaciOPlacanju().getIznos()));
+        accountService.save(creditorAccount);
+
         mt103.setObracunskiRacunPoverioca(debtorBank.getAccountNumber());
         mt103.setSwiftKodPoverioca(debtorBank.getSwiftCode());
         mt103.setObracunskiRacunDuznika(creditorBank.getAccountNumber());

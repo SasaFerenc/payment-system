@@ -1,5 +1,7 @@
 package com.banka.ws.client;
 
+import com.banka.model.Account;
+import com.banka.services.AccountService;
 import com.banka.types.Mt103;
 import com.banka.types.Mt900;
 import com.banka.types.ObjectFactory;
@@ -22,40 +24,17 @@ public class CentralBankClient {
     @Autowired
     private WebServiceTemplate webServiceTemplate;
 
-    /*@PostConstruct
-    public void init() {
-        Mt900 res = sendMT103("ooo");
-    }*/
+    @Autowired
+    AccountService accountService;
 
     public Mt900 sendMT103(Mt103 mt103) {
-       /* ObjectFactory objectFactory = new ObjectFactory();
-        Mt103 mt103 = objectFactory.createMt103();
-
-        mt103.setIdPoruke(id);
-        mt103.setObracunskiRacunDuznika("kk");
-        mt103.setObracunskiRacunPoverioca("ll");
-
-        PodaciOPlacanju podaciOPlacanju = new PodaciOPlacanju();
-        podaciOPlacanju.setDatumNaloga(new XMLGregorianCalendarImpl());
-        podaciOPlacanju.setDatumValute(new XMLGregorianCalendarImpl());
-        podaciOPlacanju.setDuznikNalogodavac("a");
-        podaciOPlacanju.setIznos(new BigDecimal(5));
-        podaciOPlacanju.setModelOdobrenja(1);
-        podaciOPlacanju.setModelZaduzenja(1);
-        podaciOPlacanju.setPozivNaBrojOdobrenja(1);
-        podaciOPlacanju.setPozivNaBrojZaduzenja("sa");
-        podaciOPlacanju.setPrimalacPoverilac("a");
-        podaciOPlacanju.setRacunDuznika("a");
-        podaciOPlacanju.setRacunPoverioca("aa");
-        podaciOPlacanju.setSvrhaPlacanja("aa");
-
-        mt103.setPodaciOPlacanju(podaciOPlacanju);
-        mt103.setSifraValute("a");
-        mt103.setSwiftKodDuznika("s");
-        mt103.setSwiftKodPoverioca("d");*/
-
         Mt900 response = (Mt900) webServiceTemplate.marshalSendAndReceive(mt103);
         LOGGER.info("900 doslo: " + response.getIdPoruke());
+
+        Account account = accountService.findByCountNumber(mt103.getPodaciOPlacanju().getRacunDuznika()).get(0);
+        account.setReserved(account.getReserved().subtract(response.getIznos()));
+        account.setTotal(account.getTotal().subtract(response.getIznos()));
+        accountService.save(account);
         return response;
     }
 
