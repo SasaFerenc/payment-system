@@ -2,10 +2,7 @@ package com.banka.ws.endpoints;
 
 import com.banka.model.Account;
 import com.banka.services.AccountService;
-import com.banka.types.Mt102;
-import com.banka.types.Mt103;
-import com.banka.types.Mt910;
-import com.banka.types.StringResponse;
+import com.banka.types.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +30,9 @@ public class ResponseEndpoint {
         StringResponse response = new StringResponse();
         response.setMessage("OK");
 
-        Account account = accountService.findByCountNumber(mt103.getPodaciOPlacanju().getRacunPoverioca()).get(0);
+        /*Account account = accountService.findByCountNumber(mt103.getPodaciOPlacanju().getRacunPoverioca()).get(0);
         account.setTotal(account.getTotal().add(mt103.getPodaciOPlacanju().getIznos()));
-        accountService.save(account);
+        accountService.save(account);*/
 
         return response;
     }
@@ -52,8 +49,8 @@ public class ResponseEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI_900, localPart = "mt900")
     @ResponsePayload
-    public StringResponse handle900(@RequestPayload Mt910 mt910) {
-        LOGGER.info("900 stigla: " + mt910.getIdPoruke());
+    public StringResponse handle900(@RequestPayload Mt900 mt900) {
+        LOGGER.info("900 stigla: " + mt900.getIdPoruke());
         StringResponse response = new StringResponse();
         response.setMessage("OK");
 
