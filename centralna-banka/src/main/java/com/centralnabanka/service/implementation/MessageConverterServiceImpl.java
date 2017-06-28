@@ -9,6 +9,9 @@ import com.centralnabanka.types.Mt910;
 import com.centralnabanka.types.PodaciOPlacanju;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class MessageConverterServiceImpl implements MessageConverterService {
 
@@ -53,6 +56,7 @@ public class MessageConverterServiceImpl implements MessageConverterService {
     @Override
     public GroupPayment convertToGroupPayment(Mt102 message) {
         GroupPayment groupPayment = new GroupPayment();
+        List<PaymentRequest> paymentRequests = new ArrayList<>();
 
         groupPayment.setMessageId(message.getIdPoruke());
         groupPayment.setCreditorSwiftCode(message.getSwiftKodDuznika());
@@ -82,8 +86,10 @@ public class MessageConverterServiceImpl implements MessageConverterService {
             paymentRequest.setValuteCode(payment.getSifraValute());
 
             paymentRequest.setGroupPayment(groupPayment);
-            groupPayment.getPaymentRequests().add(paymentRequest);
+            paymentRequests.add(paymentRequest);
         }
+
+        groupPayment.setPaymentRequests(paymentRequests);
 
         return groupPayment;
     }
