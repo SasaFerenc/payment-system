@@ -8,6 +8,11 @@ app.config(['$routeProvider', function ($routeProvider) {
             controller: 'invoice'
         })
         .when('/warrant', {
-            templateUrl: 'warrant.html'
+            templateUrl: 'warrant.html',
+            controller: 'warrant'
+        })
+        .when('/excerpt', {
+            templateUrl: 'excerpt.html',
+            controller: 'excerpt'
         });
 }]);
