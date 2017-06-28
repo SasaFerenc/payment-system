@@ -4,6 +4,7 @@ import com.centralnabanka.model.GroupPayment;
 import com.centralnabanka.repository.GroupPaymentRepository;
 import com.centralnabanka.service.ClearingService;
 import com.centralnabanka.service.MessageConverterService;
+import com.centralnabanka.service.MessageSenderService;
 import com.centralnabanka.types.Mt102;
 import com.centralnabanka.ws.client.BankClient;
 import org.slf4j.Logger;
@@ -22,6 +23,9 @@ public class ClearingServiceImpl implements ClearingService {
 
     @Autowired
     MessageConverterService messageConverter;
+
+    @Autowired
+    MessageSenderService messageSender;
 
     @Autowired
     BankService bankService;
@@ -45,12 +49,9 @@ public class ClearingServiceImpl implements ClearingService {
         paymentRepository.save(payment);
 
         Mt102 mt102 = messageConverter.convertToMt102(payment);
-
         String creditorBankUrl = bankService.getBankUrlBySwiftCode(payment.getCreditorSwiftCode());
-        bankClient.sendMessage(messageConverter.convertToMt900(mt102), creditorBankUrl);
 
-        String debtorBankUrl = bankService.getBankUrlBySwiftCode(payment.getDebtorSwiftCode());
-        bankClient.sendMessage(messageConverter.convertToMt910(mt102), debtorBankUrl);
-        bankClient.sendMessage(mt102,  debtorBankUrl);
+        bankClient.sendMessage(messageConverter.convertToMt900(mt102), creditorBankUrl);
+        messageSender.sendMessagesToDebtor(mt102);
     }
 }
