@@ -78,5 +78,7 @@ public class StavkaPreseka {
     @Digits(integer = 15, fraction = 2)
     private BigDecimal iznos;
 
-    private Character smer;
+    @Column(length = 1)
+    @Size(max = 1)
+    private String smer;
 }

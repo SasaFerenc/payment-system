@@ -4,15 +4,19 @@ import com.firma.service.BankStatementService;
 import com.firma.types.ObjectFactory;
 import com.firma.model.ZahtevZaIzvod;
 import com.firma.types.Presek;
+import com.firma.types.StavkaPreseka;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by predrag on 6/28/17.
@@ -31,13 +35,16 @@ public class BankStatementController {
 
     @RequestMapping(
             method = RequestMethod.POST,
-            consumes = "application/json"
+            consumes = "application/json",
+            produces = "application/json"
     )
-    public void requestStatement(@RequestBody ZahtevZaIzvod zahtev){
-        Presek presek = bankStatement.sendStatementRequest(transoformZahtev(zahtev));
+    @ResponseBody
+    public com.firma.model.Presek requestStatement(@RequestBody ZahtevZaIzvod zahtev){
+        com.firma.model.Presek presek = transformPresek(bankStatement.sendStatementRequest(transformZahtev(zahtev)));
+        return bankStatement.saveBankStatement(presek);
     }
 
-    private com.firma.types.ZahtevZaIzvod transoformZahtev(ZahtevZaIzvod zahtev){
+    private com.firma.types.ZahtevZaIzvod transformZahtev(ZahtevZaIzvod zahtev){
         ObjectFactory factory = new ObjectFactory();
         com.firma.types.ZahtevZaIzvod z = factory.createZahtevZaIzvod();
         z.setBrojRacuna(zahtev.getBrojRacuna());
@@ -51,4 +58,40 @@ public class BankStatementController {
         }
         return z;
     }
+
+    private com.firma.model.Presek transformPresek(Presek presek){
+        com.firma.model.Presek p = new com.firma.model.Presek();
+        p.setBrojPreseka(presek.getZaglavljePreseka().getBrojPreseka());
+        p.setBrojPromenaNaTeret(presek.getZaglavljePreseka().getBrojPromenaNaTeret());
+        p.setBrojPromenaUKorist(presek.getZaglavljePreseka().getBrojPromenaNaTeret());
+        p.setBrojRacuna(presek.getZaglavljePreseka().getBrojRacuna());
+        p.setDatumNaloga(presek.getZaglavljePreseka().getDatumNaloga().toGregorianCalendar().getTime());
+        p.setBrojRacuna(presek.getZaglavljePreseka().getBrojRacuna());
+        p.setUkupnoUKorist(presek.getZaglavljePreseka().getUkupnoUKorist());
+        p.setUkupnoNaTeret(presek.getZaglavljePreseka().getUkupnoNaTeret());
+        p.setUkupnoStanje(presek.getZaglavljePreseka().getUkupnoStanje());
+        List<com.firma.model.StavkaPreseka> list = presek.getStavkaPreseka().stream().map(stav -> transformStavkaPreseka(stav))
+                                                                                     .collect(Collectors.toList());
+        p.setStavkePreseka(list);
+        return p;
+    }
+
+    private com.firma.model.StavkaPreseka transformStavkaPreseka(StavkaPreseka stavka){
+        com.firma.model.StavkaPreseka s = new com.firma.model.StavkaPreseka();
+        s.setSmer(stavka.getSmer());
+        s.setSvrhaPlacanja(stavka.getPodaciOPlacanju().getSvrhaPlacanja());
+        s.setRacunPoverioca(stavka.getPodaciOPlacanju().getRacunPoverioca());
+        s.setRacunDuznika(stavka.getPodaciOPlacanju().getRacunDuznika());
+        s.setPrimalacPoverilac(stavka.getPodaciOPlacanju().getPrimalacPoverilac());
+        s.setPozivNaBrojZaduzenja(stavka.getPodaciOPlacanju().getPozivNaBrojZaduzenja());
+        s.setPozivNaBrojOdobrenja(String.valueOf(stavka.getPodaciOPlacanju().getPozivNaBrojOdobrenja()));
+        s.setModelZaduzenja(stavka.getPodaciOPlacanju().getModelZaduzenja());
+        s.setModelOdobrenja(stavka.getPodaciOPlacanju().getModelOdobrenja());
+        s.setIznos(stavka.getPodaciOPlacanju().getIznos());
+        s.setDuznikNalogodavac(stavka.getPodaciOPlacanju().getDuznikNalogodavac());
+        s.setDatumNaloga(stavka.getPodaciOPlacanju().getDatumNaloga().toGregorianCalendar().getTime());
+        s.setDatumValute(stavka.getPodaciOPlacanju().getDatumValute().toGregorianCalendar().getTime());
+        return s;
+    }
+
 }
