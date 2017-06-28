@@ -1,5 +1,7 @@
 package com.firma.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,14 +24,16 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties("id")
 public class Faktura {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "faktura", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<StavkaFaktura> stavkeFakture;
+    @OneToMany(mappedBy = "faktura", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<StavkaFaktura> stavkeFakture;
 
     @Column(length = 50)
     @Size(max = 50)
@@ -111,4 +115,10 @@ public class Faktura {
 
     @Column
     private Boolean received;
+
+    public void setForeignKey() {
+        for (StavkaFaktura stavka : stavkeFakture) {
+            stavka.setFaktura(this);
+        }
+    }
 }

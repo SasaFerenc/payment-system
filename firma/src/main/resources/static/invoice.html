@@ -6,9 +6,10 @@
     </ul>
 
     <div class="tab-content">
-        <div id="kreiraneFakture" class="tab-pane fade is active" ng-click="getCreatedInvoice()">
+        <div id="kreiraneFakture" class="tab-pane fade is active">
             <br/>
-
+            <button type="button" ng-click="getCreatedInvoice()" class="btn btn-xs btn-info"> Osvezi </button>
+            <br/>
             <table class="table table-bordered" ng-if="!invoiceFormShow">
                 <thead>
                     <tr>

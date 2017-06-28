@@ -34,7 +34,7 @@ public class InvoiceController {
 
     @ResponseBody
     public Faktura createInvoice(@RequestBody Faktura faktura){
-
+        faktura.setForeignKey();
         faktura.setSent(false);
         faktura.setReceived(false);
         return invoiceService.save(faktura);
@@ -55,7 +55,7 @@ public class InvoiceController {
             method = RequestMethod.POST,
             consumes = "application/json"
     )
-    public String sendInvoice(@RequestBody Faktura faktura){
+    public Faktura sendInvoice(@RequestBody Faktura faktura){
         return invoiceService.sentInvoice(faktura);
     }
 
@@ -64,7 +64,9 @@ public class InvoiceController {
             method = RequestMethod.POST,
             consumes = "application/json"
     )
-    public String receiveInvoice(@RequestBody Faktura faktura){
+    @ResponseBody
+    public Faktura receiveInvoice(@RequestBody Faktura faktura){
+
         return invoiceService.receiveInvoice(faktura);
     }
 

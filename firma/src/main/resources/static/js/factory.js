@@ -40,10 +40,10 @@ angular.module('FirmApplication.factory', []).factory('factory', function ($http
         });
     }
 
-    factory.getReceivedInvoice = function(){
+    factory.getCreatedInvoice = function(){
         return $http({
             method: 'GET',
-            url: "/invoices/show/createds"
+            url: "/invoices/all"
         });
     }
 
