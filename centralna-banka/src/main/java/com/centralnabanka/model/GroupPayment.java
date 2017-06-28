@@ -4,10 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +28,6 @@ public class GroupPayment extends Base {
 
     private boolean settled = false;
 
-    @OneToMany(mappedBy = "groupPayment", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "groupPayment", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<PaymentRequest> paymentRequests;
 }
