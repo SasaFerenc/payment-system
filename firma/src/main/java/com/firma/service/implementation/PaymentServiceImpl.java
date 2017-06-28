@@ -10,10 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Created by Predrag on 6/27/17.
- */
-
 @Service
 public class PaymentServiceImpl implements PaymentService {
 

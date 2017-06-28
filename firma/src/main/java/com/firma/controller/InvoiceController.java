@@ -9,10 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * Created by Predrag on 6/25/17.
- */
-
 @Controller
 @RequestMapping("/invoices")
 public class InvoiceController {

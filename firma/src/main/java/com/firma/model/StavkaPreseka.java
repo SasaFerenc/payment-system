@@ -1,5 +1,7 @@
 package com.firma.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,21 +12,19 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
 
-/**
- * Created by Predrag on 6/26/17.
- */
-
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class StavkaPreseka {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "idPresek")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "presek_id")
+    @JsonBackReference
     private Presek presek;
 
     @Size(max = 255)
@@ -74,5 +74,7 @@ public class StavkaPreseka {
     @Digits(integer = 15, fraction = 2)
     private BigDecimal iznos;
 
-    private Character smer;
+    @Column(length = 1)
+    @Size(max = 1)
+    private String smer;
 }

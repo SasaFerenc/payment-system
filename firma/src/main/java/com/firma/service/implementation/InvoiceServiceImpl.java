@@ -13,10 +13,6 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Created by Predrag on 6/27/17.
- */
-
 @Service
 public class InvoiceServiceImpl implements InvoiceService{
 

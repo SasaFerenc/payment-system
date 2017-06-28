@@ -12,16 +12,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
-/**
- * Created by Predrag on 6/26/17.
- */
-
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties("id")
-public class StavkaFaktura {
+public class StavkaFakture {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

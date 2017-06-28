@@ -10,15 +10,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
-
-/**
- * Created by Predrag on 6/26/17.
- */
 
 @Entity
 @Data
@@ -33,7 +27,7 @@ public class Faktura {
 
     @OneToMany(mappedBy = "faktura", cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<StavkaFaktura> stavkeFakture;
+    private List<StavkaFakture> stavkeFakture;
 
     @Column(length = 50)
     @Size(max = 50)
@@ -117,7 +111,7 @@ public class Faktura {
     private Boolean received;
 
     public void setForeignKey() {
-        for (StavkaFaktura stavka : stavkeFakture) {
+        for (StavkaFakture stavka : stavkeFakture) {
             stavka.setFaktura(this);
         }
     }
