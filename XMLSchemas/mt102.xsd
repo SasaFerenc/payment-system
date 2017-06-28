@@ -20,9 +20,10 @@
                 <xs:element name="sifra_valute" type="t:String_3"/>
                 <xs:element name="datum_valute" type="xs:date"/>
                 <xs:element name="datum" type="xs:date"/>
-                <xs:element name="pojedinacna_placanja">
+                <xs:element name="pojedinacna_placanja" maxOccurs="unbounded">
                     <xs:complexType>
                         <xs:sequence>
+                            <xs:element name="id_naloga" type="t:String_50" />
                             <xs:element name="podaci_o_placanju" type="pp:podaci_o_placanju"/>
                             <xs:element name="sifra_valute" type="t:String_3"/>
                         </xs:sequence>
