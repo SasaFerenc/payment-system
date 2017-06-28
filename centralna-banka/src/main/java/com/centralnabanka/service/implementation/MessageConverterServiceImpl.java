@@ -1,6 +1,9 @@
 package com.centralnabanka.service.implementation;
 
+import com.centralnabanka.model.GroupPayment;
+import com.centralnabanka.model.PaymentRequest;
 import com.centralnabanka.service.MessageConverterService;
+import com.centralnabanka.types.Mt102;
 import com.centralnabanka.types.Mt900;
 import com.centralnabanka.types.Mt910;
 import com.centralnabanka.types.PodaciOPlacanju;
@@ -45,6 +48,44 @@ public class MessageConverterServiceImpl implements MessageConverterService {
         response.setObracunskiRacunPoverioca((String) invokeMethod(message, "getObracunskiRacunPoverioca"));
 
         return response;
+    }
+
+    @Override
+    public GroupPayment convertToGroupPayment(Mt102 message) {
+        GroupPayment groupPayment = new GroupPayment();
+
+        groupPayment.setMessageId(message.getIdPoruke());
+        groupPayment.setCreditorSwiftCode(message.getSwiftKodDuznika());
+        groupPayment.setCreditorAccountNumber(message.getObracunskiRacunDuznika());
+        groupPayment.setDebtorSwiftCode(message.getSwiftKodPoverioca());
+        groupPayment.setDebtorAccountNumber(message.getObracunskiRacunPoverioca());
+        groupPayment.setTotal(message.getUkupanIznos());
+        groupPayment.setValuteCode(message.getSifraValute());
+        groupPayment.setValuteDate(message.getDatumValute().toGregorianCalendar().getTime());
+        groupPayment.setPaymentDate(message.getDatum().toGregorianCalendar().getTime());
+
+        for (Mt102.PojedinacnaPlacanja payment : message.getPojedinacnaPlacanja()) {
+            PaymentRequest paymentRequest = new PaymentRequest();
+
+            paymentRequest.setPaymentId(payment.getIdNaloga());
+            paymentRequest.setCreditorName(payment.getPodaciOPlacanju().getDuznikNalogodavac());
+            paymentRequest.setPurpose(payment.getPodaciOPlacanju().getSvrhaPlacanja());
+            paymentRequest.setDebtorName(payment.getPodaciOPlacanju().getPrimalacPoverilac());
+            paymentRequest.setPaymentDate(payment.getPodaciOPlacanju().getDatumNaloga().toGregorianCalendar().getTime());
+            paymentRequest.setCreditorAccountNumber(payment.getPodaciOPlacanju().getRacunDuznika());
+            paymentRequest.setChargeModel(payment.getPodaciOPlacanju().getModelZaduzenja());
+            paymentRequest.setDebitReferenceNumber(payment.getPodaciOPlacanju().getPozivNaBrojZaduzenja());
+            paymentRequest.setDebtorAccountNumber(payment.getPodaciOPlacanju().getRacunPoverioca());
+            paymentRequest.setAllowanceModel(payment.getPodaciOPlacanju().getModelOdobrenja());
+            paymentRequest.setCreditReferenceNumber(payment.getPodaciOPlacanju().getPozivNaBrojOdobrenja());
+            paymentRequest.setAmount(payment.getPodaciOPlacanju().getIznos());
+            paymentRequest.setValuteCode(payment.getSifraValute());
+
+            paymentRequest.setGroupPayment(groupPayment);
+            groupPayment.getPaymentRequests().add(paymentRequest);
+        }
+
+        return groupPayment;
     }
 
     private Object invokeMethod(Object object, String methodName) throws Exception {

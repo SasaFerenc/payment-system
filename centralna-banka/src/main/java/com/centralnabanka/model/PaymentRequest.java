@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -18,13 +19,13 @@ public class PaymentRequest extends Base {
     private String creditorName;
     private String purpose;
     private String debtorName;
-    private String paymentDate;
+    private Date paymentDate;
     private String creditorAccountNumber;
     private int chargeModel;
     private String debitReferenceNumber;
     private String debtorAccountNumber;
     private int allowanceModel;
-    private String creditReferenceNumber;
+    private int creditReferenceNumber;
     private BigDecimal amount;
     private String valuteCode;
 
