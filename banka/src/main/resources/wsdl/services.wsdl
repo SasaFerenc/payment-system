@@ -22,11 +22,14 @@
         </schema>
     </types>
 
-    <message name="RTGSResponse">
+    <message name="RTGSResponse103">
         <part name="mt103" element="mt103" />
     </message>
     <message name="PaymentRequest">
         <part name="nalog" element="nalog" />
+    </message>
+    <message name="RTGSResponse910">
+        <part name="mt910" element="mt910" />
     </message>
     <message name="Response">
         <part name="mt103Response" type="StringResponse" />
@@ -34,11 +37,15 @@
 
     <portType name="Bank_PortType">
         <operation name="receiveMt103">
-            <input message="RTGSResponse" />
+            <input message="RTGSResponse103" />
             <output message="Response" />
         </operation>
         <operation name="paymentRequest">
             <input message="PaymentRequest" />
+            <output message="Response" />
+        </operation>
+        <operation name="receiveMt910">
+            <input message="RTGSResponse910" />
             <output message="Response" />
         </operation>
     </portType>
@@ -55,6 +62,14 @@
             </output>
         </operation>
         <operation name="paymentRequest">
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+        <operation name="receiveMt910">
             <input>
                 <soap:body use="literal" />
             </input>
