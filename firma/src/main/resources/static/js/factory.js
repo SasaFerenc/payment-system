@@ -2,6 +2,8 @@ angular.module('FirmApplication.factory', []).factory('factory', function ($http
 
     var factory = {};
 
+    // FAKTURE
+
     factory.sendInvoice = function (invoice) {
 
         var data = angular.toJson(invoice);
@@ -46,6 +48,40 @@ angular.module('FirmApplication.factory', []).factory('factory', function ($http
             url: "/invoices/all"
         });
     }
+
+    // NALOZI
+
+    factory.createWarrant = function (warrant) {
+        var data = angular.toJson(warrant);
+
+        return $http({
+            method: 'POST',
+            data: data,
+            headers: {'Content-Type': 'application/json'},
+            url: "/payments"
+        });
+    }
+
+    factory.sendWarrant = function (warrant) {
+        var data = angular.toJson(warrant);
+
+        return $http({
+            method: 'POST',
+            data: data,
+            headers: {'Content-Type': 'application/json'},
+            url: "/payments/send"
+        });
+    }
+
+    factory.getCreatedWarrant = function () {
+        return $http({
+            method: 'GET',
+            url: "/payments"
+        });
+    }
+
+
+
 
     return factory;
 });

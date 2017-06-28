@@ -11,15 +11,17 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by Predrag on 6/26/17.
  */
 
 @Controller
-@RequestMapping(value = "payments")
+@RequestMapping(value = "/payments")
 public class PaymentRequestController {
 
+    private static Logger loger = Logger.getLogger("S");
     private PaymentService paymentService;
 
     @Autowired
@@ -34,7 +36,7 @@ public class PaymentRequestController {
     )
     @ResponseBody
     public Nalog createPayment(@RequestBody Nalog nalog){
-
+        loger.info(nalog.toString());
         return paymentService.createPayment(nalog);
     }
 

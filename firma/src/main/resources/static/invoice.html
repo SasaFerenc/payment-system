@@ -8,7 +8,7 @@
     <div class="tab-content">
         <div id="kreiraneFakture" class="tab-pane fade is active">
             <br/>
-            <button type="button" ng-click="getCreatedInvoice()" class="btn btn-xs btn-info"> Osvezi </button>
+            <button ng-if="!invoiceFormShow" type="button" ng-click="getCreatedInvoice()" class="btn btn-xs btn-info"> Osvezi </button>
             <br/>
             <table class="table table-bordered" ng-if="!invoiceFormShow">
                 <thead>
@@ -19,7 +19,6 @@
                         <th>Datum</th>
                         <th>Iznos</th>
                         <th>Posalji</th>
-                        <th>Obrisi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,7 +29,6 @@
                         <th ng-click="details(invoice)">{{invoice.datumRacuna | date: "dd-MM-yyyy"}}</th>
                         <th ng-click="details(invoice)">{{invoice.iznosZaUplatu}}</th>
                         <th><button type="button" class="btn btn-sm btn-warning" ng-click="sendInvoice(invoice)"> Posalji </button></th>
-                        <th><button type="button" class="btn btn-sm btn-danger" ng-click="deleteInvoice(invoice)"> Obrisi </button></th>
                     </tr>
                 </tbody>
             </table>
@@ -161,7 +159,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="uplataNaRacun">Uplata Na Racun: </label>
                         <div class="col-sm-4">
-                            <input class="form-control" id="uplataNaRacun" type="text" maxlength="18" ng-model="invoice.uplataNaRacuna" ng-disabled="showDetails"/>
+                            <input class="form-control" id="uplataNaRacun" type="text" maxlength="18" ng-model="invoice.uplataNaRacun" ng-disabled="showDetails"/>
                         </div>
                     </div>
 
@@ -206,7 +204,9 @@
 
         </div>
 
-        <div id="poslateFakture" class="tab-pane fade" ng-click="getSentInvoice()">
+        <div id="poslateFakture" class="tab-pane fade">
+            <br/>
+            <button type="button" ng-click="getSentInvoice()" class="btn btn-xs btn-info"> Osvezi </button>
             <br/>
 
             <table class="table table-bordered">
@@ -234,7 +234,9 @@
 
         </div>
 
-        <div id="primljeneFakture" class="tab-pane fade" ng-click="getReceived()">
+        <div id="primljeneFakture" class="tab-pane fade">
+            <br/>
+            <button type="button" ng-click="getReceived()" class="btn btn-xs btn-info"> Osvezi </button>
             <br/>
 
             <table class="table table-bordered">
