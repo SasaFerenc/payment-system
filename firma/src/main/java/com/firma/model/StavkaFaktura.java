@@ -1,5 +1,8 @@
 package com.firma.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,14 +19,17 @@ import java.math.BigDecimal;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@JsonIgnoreProperties("id")
 public class StavkaFaktura {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "idFakture")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "faktura_id")
+    @JsonBackReference
     private Faktura faktura;
 
     @NotNull
@@ -65,7 +71,5 @@ public class StavkaFaktura {
     @Digits(integer = 12, fraction = 2)
     @NotNull
     private BigDecimal ukupanPorez;
-
-
 
 }

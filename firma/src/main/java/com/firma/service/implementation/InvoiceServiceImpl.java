@@ -4,6 +4,8 @@ import com.firma.model.Faktura;
 import com.firma.repository.InvoiceRepository;
 import com.firma.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -45,10 +47,11 @@ public class InvoiceServiceImpl implements InvoiceService{
     }
 
     @Override
-    public String sentInvoice(Faktura faktura) {
+    public Faktura sentInvoice(Faktura faktura) {
         //TODO: find other firm's url and send message
+
         RestTemplate template = new RestTemplate();
-        ResponseEntity<String> response = template.postForEntity("", faktura, String.class);
+        ResponseEntity<Faktura> response = template.postForEntity("http://192.168.1.4:8080/invoices/receive", faktura, Faktura.class);
         faktura.setSent(true);
         invoiceRepository.save(faktura);
         return response.getBody();
@@ -65,11 +68,11 @@ public class InvoiceServiceImpl implements InvoiceService{
     }
 
     @Override
-    public String receiveInvoice(Faktura faktura) {
+    public Faktura receiveInvoice(Faktura faktura) {
         faktura.setReceived(true);
         faktura.setSent(false);
         invoiceRepository.save(faktura);
-        return "Successfuly received";
+        return faktura;
     }
 
     @Override
