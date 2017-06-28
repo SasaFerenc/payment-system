@@ -1,7 +1,110 @@
 <div class="container" ng-controller="excerpt">
-    <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#newExcerptModal">Kreiraj Zahtev</button>
+
+    <button ng-if="!showSection" type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#newExcerptModal">Kreiraj Zahtev</button>
+
+    <div ng-if="showSection" >
+        <form class="form-horizontal">
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="brojRacunaPreseka">Broj Racuna: </label>
+                <div class="col-sm-4">
+                    <input class="form-control" id="brojRacunaPreseka" type="text" ng-model="section.brojRacuna" ng-disabled="true" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="datumNaloga">Datum Naloga: </label>
+                <div class="col-sm-4">
+                    <input class="form-control" id="datumNaloga" type="date" ng-model="section.datumNaloga" ng-disabled="true"/>
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="brojPreseka">Broj Preseka: </label>
+                <div class="col-sm-4">
+                    <input class="form-control" id="brojPreseka" type="number" ng-model="section.brojPreseka" ng-disabled="true"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="prethodnoStanje">Prethodno Stanje: </label>
+                <div class="col-sm-4">
+                    <input class="form-control" id="prethodnoStanje" type="number" ng-model="section.prethodnoStanje" ng-disabled="true"/>
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="brojPromenaUKorist">Br. Promena U Korist: </label>
+                <div class="col-sm-4">
+                    <input class="form-control" id="brojPromenaUKorist" type="number" ng-model="section.brojPromenaUKorist" ng-disabled="true"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="ukupnoUKorist">Ukupno U Korist: </label>
+                <div class="col-sm-4">
+                    <input class="form-control" id="ukupnoUKorist" type="number" ng-model="section.ukupnoUKorist" ng-disabled="true"/>
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="brojPromenaNaTeret">Br. Promena Na Teret: </label>
+                <div class="col-sm-4">
+                    <input class="form-control" id="brojPromenaNaTeret" type="number" ng-model="section.brojPromenaNaTeret" ng-disabled="true"/>
+                </div>
+            </div>
 
 
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="ukupnoNaTeret">Ukupno Na Teret: </label>
+                <div class="col-sm-4">
+                    <input class="form-control" id="ukupnoNaTeret" type="number" ng-model="section.ukupnoNaTeret" ng-disabled="true"/>
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="novoStanje">Ukupno Stanje: </label>
+                <div class="col-sm-4">
+                    <input class="form-control" id="novoStanje" type="number" ng-model="section.novoStanje" ng-disabled="true"/>
+                </div>
+            </div>
+
+        </form>
+        <br/>
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Duznik</th>
+                <th>Svrha Placanja</th>
+                <th>Datum</th>
+                <th>Iznos</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in section.stavkePreseka | orderBy: item.iznos" data-toggle="modal" data-target="#sectionItemModal" ng-click="sectionItemDetails(item)">
+                <th>{{item.duznikNalogodavac}}</th>
+                <th>{{item.svrhaPlacanja}}</th>
+                <th>{{item.datumNaloga | date: "dd-MM-yyyy"}}</th>
+                <th>{{item.iznos}}</th>
+            </tr>
+            </tbody>
+        </table>
+
+        <hr/>
+        <button type="button" class="btn btn-sm btn-info"  ng-click="changeDivShow(false)">Nazad</button>
+
+
+
+    </div>
 
 
 
@@ -54,5 +157,130 @@
 
     </div>
 
+
+    <!-- SECTION ITEM MODAL-->
+    <div class="modal fade" id="sectionItemModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="duznik">Duznik: </label>
+                            <div class="col-sm-5">
+                                <input class="form-control" id="duznik" type="text" ng-model="itemToShow.duznikNalogodavac" ng-disabled="true"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="svrhaPlacanja">Svrha Placanja: </label>
+                            <div class="col-sm-5">
+                                <input class="form-control" id="svrhaPlacanja" type="text" ng-model="itemToShow.svrhaPlacanja" ng-disabled="true"/>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="primalac">Primalac: </label>
+                            <div class="col-sm-5">
+                                <input class="form-control" id="primalac" type="text" ng-model="itemToShow.primalacPoverilac" ng-disabled="true"/>
+                            </div>
+                        </div>
+
+
+                        <hr/>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="datumNalogaStavke">Datum Naloga: </label>
+                            <div class="col-sm-5">
+                                <input class="form-control" id="datumNalogaStavke" type="date" ng-model="itemToShow.datumNaloga" ng-disabled="true"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="datumValute">Datum Valute: </label>
+                            <div class="col-sm-5">
+                                <input class="form-control" id="datumValute" type="date" ng-model="itemToShow.datumValute" ng-disabled="true"/>
+                            </div>
+                        </div>
+
+                        <hr/>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="racunDuznika">Racun Duznika: </label>
+                            <div class="col-sm-5">
+                                <input class="form-control" id="racunDuznika" type="text" ng-model="itemToShow.racunDuznika" ng-disabled="true"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="modelZaduzenja">Model Zaduzenja: </label>
+                            <div class="col-sm-5">
+                                <input class="form-control" id="modelZaduzenja" type="number" ng-model="itemToShow.modelZaduzenja" ng-disabled="true"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="pozivNaBroj">Poziv Na Broj Zaduzenja: </label>
+                            <div class="col-sm-5">
+                                <input class="form-control" id="pozivNaBroj" type="text" ng-model="itemToShow.pozivNaBrojZaduzenja" ng-disabled="true"/>
+                            </div>
+                        </div>
+
+
+                        <hr/>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="racunPoverioca">Racun Poverioca: </label>
+                            <div class="col-sm-5">
+                                <input class="form-control" id="racunPoverioca" type="text" ng-model="itemToShow.racunPoverioca" ng-disabled="true"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="modelOdobrenja">Model Odobrenja: </label>
+                            <div class="col-sm-5">
+                                <input class="form-control" id="modelOdobrenja" type="number" ng-model="itemToShow.modelOdobrenja" ng-disabled="true"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="pozivNaBrojOdobrenja">Poziv Na Broj Odobrenja: </label>
+                            <div class="col-sm-5">
+                                <input class="form-control" id="pozivNaBrojOdobrenja" type="text" ng-model="itemToShow.pozivNaBrojOdobrenja" ng-disabled="true"/>
+                            </div>
+                        </div>
+
+
+                        <hr/>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="iznos">Iznos: </label>
+                            <div class="col-sm-5">
+                                <input class="form-control" id="iznos" type="number" ng-model="itemToShow.iznos" ng-disabled="true"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="smer">Smer: </label>
+                            <div class="col-sm-5">
+                                <input class="form-control" id="smer" type="text" ng-model="itemToShow.smer" ng-disabled="true"/>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Odustani</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
 </div>

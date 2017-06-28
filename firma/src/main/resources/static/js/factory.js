@@ -80,7 +80,18 @@ angular.module('FirmApplication.factory', []).factory('factory', function ($http
         });
     }
 
+ // IZVODI
 
+    factory.sendRequest = function (excerptRequest){
+        var data = angular.toJson(excerptRequest);
+
+        return $http({
+            method: 'POST',
+            data: data,
+            headers: {'Content-Type': 'application/json'},
+            url: "/statement"
+        });
+    }
 
 
     return factory;
