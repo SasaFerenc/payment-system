@@ -9,21 +9,16 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@Service
 @Transactional
+@Service
 public class AccountServiceImpl implements AccountService {
 
     @Autowired
     AccountRepository accountRepository;
 
     @Override
-    public Account findOne(Long id) {
-        return accountRepository.findOne(id);
-    }
-
-    @Override
-    public List<Account> findByFirm(Long id) {
-        return accountRepository.findByFirm(id);
+    public Account getOne(Long id) {
+        return accountRepository.getOne(id);
     }
 
     @Override
@@ -32,12 +27,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<Account> findByCountNumber(String number) {
-        return accountRepository.findByCountNumber(number);
+    public void deleteById(Long id) {
+        accountRepository.deleteById(id);
     }
 
     @Override
-    public void delete(Long id) {
-        accountRepository.delete(id);
+    public List<Account> findByCountNumber(String number) {
+        return accountRepository.findByCountNumber(number);
     }
 }

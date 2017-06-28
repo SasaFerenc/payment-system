@@ -2,6 +2,7 @@ package com.banka.repository;
 
 import com.banka.model.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,10 +10,9 @@ import java.util.List;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
-    Account findOne(Long id);
-    List<Account> findByFirm(Long id);
+    Account getOne(Long id);
     Account save(Account account);
-    void delete(Long id);
     List<Account> findByCountNumber(String countNumber);
+    void deleteById(Long id);
 
 }

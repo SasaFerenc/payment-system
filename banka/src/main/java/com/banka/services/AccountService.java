@@ -6,10 +6,9 @@ import java.util.List;
 
 public interface AccountService {
 
-    Account findOne(Long id);
-    List<Account> findByFirm(Long id);
+    Account getOne(Long id);
     Account save(Account account);
-    void delete(Long id);
+    void deleteById(Long id);
     List<Account> findByCountNumber(String number);
 
 }

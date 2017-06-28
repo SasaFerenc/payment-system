@@ -9,9 +9,9 @@ import java.util.List;
 @Repository
 public interface FirmRepository extends JpaRepository<Firm, Long> {
 
-    Firm findOne(Long id);
+    Firm getOne(Long id);
     List<Firm> findByName(String name);
     Firm save(Firm firm);
-    void delete(Long id);
+    void deleteById(Long id);
 
 }

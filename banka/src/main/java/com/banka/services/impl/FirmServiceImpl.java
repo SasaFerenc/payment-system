@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@Service
 @Transactional
+@Service
 public class FirmServiceImpl implements FirmService {
 
     @Autowired
@@ -18,7 +18,7 @@ public class FirmServiceImpl implements FirmService {
 
     @Override
     public Firm findOne(Long id) {
-        return firmRepository.findOne(id);
+        return firmRepository.getOne(id);
     }
 
     @Override
@@ -33,6 +33,6 @@ public class FirmServiceImpl implements FirmService {
 
     @Override
     public void delete(Long id) {
-        firmRepository.delete(id);
+        firmRepository.deleteById(id);
     }
 }
