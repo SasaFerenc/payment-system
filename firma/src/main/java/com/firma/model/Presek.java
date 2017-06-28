@@ -1,5 +1,6 @@
 package com.firma.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,7 @@ public class Presek {
     private Long id;
 
     @OneToMany(mappedBy = "presek", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<StavkaPreseka> stavkePreseka;
 
     @Column(length = 18)
@@ -56,5 +58,11 @@ public class Presek {
 
     @Digits(integer = 15, fraction = 2)
     private BigDecimal ukupnoStanje;
+
+    public void setForeignKey() {
+        for (StavkaPreseka stavka : stavkePreseka) {
+            stavka.setPresek(this);
+        }
+    }
 
 }

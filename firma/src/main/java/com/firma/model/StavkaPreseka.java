@@ -1,5 +1,7 @@
 package com.firma.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,14 +19,16 @@ import java.util.Date;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class StavkaPreseka {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "idPresek")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "presek_id")
+    @JsonBackReference
     private Presek presek;
 
     @Size(max = 255)

@@ -21,7 +21,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties("id")
-public class StavkaFaktura {
+public class StavkaFakture {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
