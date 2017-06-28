@@ -7,6 +7,8 @@ import com.centralnabanka.service.MessageSenderService;
 import com.centralnabanka.service.RtgsService;
 import com.centralnabanka.types.Mt103;
 import com.centralnabanka.types.Mt900;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +18,9 @@ import org.springframework.ws.soap.SoapFaultException;
 import java.math.BigDecimal;
 
 @Service
-public class RtgsServiceImpl extends WebServiceGatewaySupport implements RtgsService {
+public class RtgsServiceImpl implements RtgsService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RtgsServiceImpl.class);
 
     @Autowired
     private BankRepository bankRepository;
@@ -29,8 +33,9 @@ public class RtgsServiceImpl extends WebServiceGatewaySupport implements RtgsSer
 
     @Override
     public Mt900 processMt103Request(Mt103 request) throws Exception {
-        transferMoney(request);
+        LOGGER.info("Processing Mt103 request ...");
 
+        transferMoney(request);
         messageSender.sendMessagesToDebtor(request);
 
         return messageConverter.convertToMt900(request);
