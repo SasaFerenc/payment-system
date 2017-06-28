@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             targetNamespace="http://www.paymentsystem.rs/services"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+
+    <types>
+        <schema targetNamespace="http://wwww.paymentsystem.rs/schemas"
+                elementFormDefault="qualified"
+                attributeFormDefault="qualified"
+                xmlns="http://www.w3.org/2001/XMLSchema"
+                version="1.0">
+            <import schemaLocation="../schemas/mt102.xsd" namespace="http://www.paymentsystem.rs/schemas/mt102"/>
+            <import schemaLocation="../schemas/mt103.xsd" namespace="http://www.paymentsystem.rs/schemas/mt103"/>
+            <import schemaLocation="../schemas/mt910.xsd" namespace="http://www.paymentsystem.rs/schemas/mt910"/>
+            <import schemaLocation="../schemas/mt900.xsd" namespace="http://www.paymentsystem.rs/schemas/mt900"/>
+            <import schemaLocation="../schemas/nalog_za_placanje.xsd" namespace="http://www.paymentsystem.rs/schemas/nalog_za_placanje"/>
+            <import schemaLocation="../schemas/podaci_o_placanju.xsd" namespace="http://www.paymentsystem.rs/schemas/podaci_o_placanju"/>
+            <import schemaLocation="../schemas/presek.xsd" namespace="http://www.paymentsystem.rs/schemas/presek"/>
+            <import schemaLocation="../schemas/stavka_preseka.xsd" namespace="http://www.paymentsystem.rs/schemas/stavka_preseka"/>
+            <import schemaLocation="../schemas/zaglavlje_preseka.xsd" namespace="http://www.paymentsystem.rs/schemas/zaglavlje_preseka"/>
+            <import schemaLocation="../schemas/zahtev_za_izvod.xsd" namespace="http://www.paymentsystem.rs/schemas/zahtev_za_izvod"/>
+        </schema>
+    </types>
+
+    <message name="RTGSResponse103">
+        <part name="mt103" element="mt103" />
+    </message>
+    <message name="PaymentRequest">
+        <part name="nalog" element="nalog" />
+    </message>
+    <message name="RTGSResponse910">
+        <part name="mt910" element="mt910" />
+    </message>
+    <message name="Response900">
+        <part name="mt900" element="mt900" />
+    </message>
+    <message name="Response102">
+        <part name="mt102" element="mt102" />
+    </message>
+    <message name="Response">
+        <part name="mt103Response" type="StringResponse" />
+    </message>
+
+    <portType name="Bank_PortType">
+        <operation name="receiveMt103">
+            <input message="RTGSResponse103" />
+            <output message="Response" />
+        </operation>
+        <operation name="paymentRequest">
+            <input message="PaymentRequest" />
+            <output message="Response" />
+        </operation>
+        <operation name="receiveMt910">
+            <input message="RTGSResponse910" />
+            <output message="Response" />
+        </operation>
+        <operation name="receiveMt102">
+            <input message="Response102" />
+            <output message="Response" />
+        </operation>
+        <operation name="receiveMt900">
+            <input message="Response900" />
+            <output message="Response" />
+        </operation>
+    </portType>
+
+    <binding name="Bank_Binding" type="Bank_PortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
+
+        <operation name="receiveMt103">
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+        <operation name="paymentRequest">
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+        <operation name="receiveMt910">
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+        <operation name="receiveMt102">
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+        <operation name="receiveMt900">
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+    </binding>
+
+    <service name="Bank_Service">
+        <port name="Bank_Port" binding="Bank_Binding">
+            <soap:address location="http://localhost:8080/ws" />
+        </port>
+    </service>
+
+</definitions>
