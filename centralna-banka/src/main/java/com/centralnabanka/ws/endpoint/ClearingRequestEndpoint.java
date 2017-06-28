@@ -20,7 +20,7 @@ public class ClearingRequestEndpoint {
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "mt102")
     @ResponsePayload
     public StringResponse handleMt102Request(@RequestPayload Mt102 request) {
-        clearingService.processMt102Request(request);
+        clearingService.saveMt102(request);
 
         StringResponse response = new StringResponse();
         response.setMessage("OK");

@@ -21,7 +21,7 @@ public class BankClient {
     public void sendMessage(Object message, String bankUrl) {
         LOGGER.info("Sending " + message.getClass().getSimpleName() + " message to " + bankUrl + " ...");
 
-        webServiceTemplate.marshalSendAndReceive(bankUrl, message);
+        webServiceTemplate.marshalSendAndReceive(bankUrl + "/ws", message);
     }
 
 }

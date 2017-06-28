@@ -1,5 +1,7 @@
 package com.centralnabanka.service.implementation;
 
+import com.centralnabanka.model.GroupPayment;
+import com.centralnabanka.repository.GroupPaymentRepository;
 import com.centralnabanka.service.ClearingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +17,17 @@ public class SettlementScheduler {
     @Autowired
     ClearingService clearingService;
 
-    @Scheduled(fixedDelay = 1000 * 60)
-    public void execute() {
-        LOGGER.info("Tic tac");
+    @Autowired
+    GroupPaymentRepository paymentRepository;
+
+    @Scheduled(fixedDelay = 1000 * 10)
+    public void execute() throws Exception {
+        for (GroupPayment payment : paymentRepository.findBySettledFalse()) {
+            LOGGER.warn("Processing " + payment.getMessageId() + " payment batch ...");
+
+            clearingService.processPayment(payment);
+
+            LOGGER.info("Done [" + payment.getMessageId() + "]");
+        }
     }
 }

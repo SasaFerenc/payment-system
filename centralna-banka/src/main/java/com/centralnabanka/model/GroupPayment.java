@@ -29,6 +29,8 @@ public class GroupPayment extends Base {
     private Date valuteDate;
     private Date paymentDate;
 
+    private boolean settled = false;
+
     @OneToMany(mappedBy = "groupPayment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PaymentRequest> paymentRequests;
 }
