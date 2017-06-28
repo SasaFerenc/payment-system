@@ -83,4 +83,26 @@ public class Nalog {
 
     @NotNull
     private Boolean hitno;
+
+    @Override
+    public String toString() {
+        return "Nalog{" +
+                "id=" + id +
+                ", idPoruke='" + idPoruke + '\'' +
+                ", duznikNalogodavac='" + duznikNalogodavac + '\'' +
+                ", svrhaPlacanja='" + svrhaPlacanja + '\'' +
+                ", primalacPoverilac='" + primalacPoverilac + '\'' +
+                ", datumNaloga=" + datumNaloga +
+                ", datumValute=" + datumValute +
+                ", racunDuznika='" + racunDuznika + '\'' +
+                ", modelZaduzenja=" + modelZaduzenja +
+                ", pozivNaBrojZaduzenja='" + pozivNaBrojZaduzenja + '\'' +
+                ", racunPoverioca='" + racunPoverioca + '\'' +
+                ", modelOdobrenja=" + modelOdobrenja +
+                ", pozivNaBrojOdobrenja=" + pozivNaBrojOdobrenja +
+                ", iznos=" + iznos +
+                ", oznakaValute='" + oznakaValute + '\'' +
+                ", hitno=" + hitno +
+                '}';
+    }
 }

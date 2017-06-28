@@ -86,7 +86,9 @@ app.controller("invoice",['$scope' ,'factory', function ($scope, factory){
     }
 
     $scope.sendInvoice = function (invoice) {
-        factory.sendInvoice(invoice);
+        factory.sendInvoice(invoice).then(function success(response) {
+
+        });
     }
 
     $scope.details = function (invoice) {
@@ -106,12 +108,15 @@ app.controller("invoice",['$scope' ,'factory', function ($scope, factory){
         $scope.invoice.items.splice($scope.invoice.items.indexOf(item), 1);
     }
 
-    $scope.deleteInvoice = function(invoice){
-        alert("NOT IMPLEMENTED");
-    }
 
     $scope.getCreatedInvoice = function () {
         factory.getCreatedInvoice().then(function success(response) {
+
+            for(var i in response.data){
+                response.data[i].datumRacuna = new Date(response.data[i].datumRacuna);
+                response.data[i].datumValute = new Date(response.data[i].datumValute);
+            }
+
             $scope.invoices = response.data;
         })
     }

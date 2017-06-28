@@ -1,218 +1,156 @@
 <div ng-controller="warrant" class="container">
-    <ul class="nav nav-tabs">
-        <li><a data-toggle="tab" data-target="#kreiraniNalozi"> Kreirani </a></li>
-        <li><a data-toggle="tab" data-target="#poslatiNalozi"> Poslati </a> </li>
-        <li><a data-toggle="tab" data-target="#primljeniNalozi"> Primljeni </a></li>
-    </ul>
 
-    <div class="tab-content">
-        <div id="kreiraniNalozi" class="tab-pane fade is active" ng-click="getKreirani()">
-            <br/>
+        <br/>
+        <button ng-if="!warrantFormShow" type="button" ng-click="getCreated()" class="btn btn-xs btn-info"> Osvezi </button>
+        <br/>
 
-            <!--
-           <table class="table table-bordered">
-               <thead>
-                   <tr>
-                       <th>Primalac</th>
-                       <th>Svrha</th>
-                       <th>Iznos</th>
-                       <th>Hitno</th>
-                       <th>Datum</th>
-                   </tr>
-               </thead>
-               <tbody>
-                   <tr ng-repeat="warrant in warrants | orderBy warrant.primalac" ng-click="details(warrant)">
-                       <th>warrant.primalac</th>
-                       <th>warrant.svrhaPlacanja</th>
-                       <th>warrant.iznos</th>
-                       <th>warrant.hitno</th>
-                       <th>warrant.datum</th>
-                   </tr>
-               </tbody>
-           </table>
-           -->
-            <div ng-if="warrantFormShow">
+       <table class="table table-bordered" ng-if="!warrantFormShow">
+           <thead>
+               <tr>
+                   <th>ID Poruke</th>
+                   <th>Primalac</th>
+                   <th>Iznos</th>
+                   <th>Hitno</th>
+                   <th>Datum</th>
+                   <th>Posalji</th>
+               </tr>
+           </thead>
+           <tbody>
+               <tr ng-repeat="warrant in warrants | orderBy: warrant.idPoruke" >
+                   <th ng-click="warrantDetails(warrant)">{{warrant.idPoruke}}</th>
+                   <th ng-click="warrantDetails(warrant)">{{warrant.primalacPoverilac}}</th>
+                   <th ng-click="warrantDetails(warrant)">{{warrant.iznos}}</th>
+                   <th ng-click="warrantDetails(warrant)">{{warrant.hitno}}</th>
+                   <th ng-click="warrantDetails(warrant)">{{warrant.datumNaloga | date: "dd-MM-yyyy"}}</th>
+                   <th><button type="button" class="btn btn-sm btn-warning" ng-click="sendWarrant(warrant)"> Posalji </button></th>
+               </tr>
+           </tbody>
+       </table>
 
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="idPoruke">ID Poruke: </label>
-                        <div class="col-sm-4">
-                            <input class="form-control" id="idPoruke" type="text" maxlength="50" ng-model="warrant.idPoruke"/>
-                        </div>
+        <div ng-if="warrantFormShow">
+
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="idPoruke">ID Poruke: </label>
+                    <div class="col-sm-4">
+                        <input class="form-control" id="idPoruke" type="text" maxlength="50" ng-model="warrant.idPoruke" ng-disabled="showWarrantDetails"/>
                     </div>
-                    <hr/>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="duznik">Duznik (Nalogodavac): </label>
-                        <div class="col-sm-4">
-                            <input class="form-control" id="duznik" type="text" maxlength="255" ng-model="warrant.podaciOPlacanju.duznikNalogodavac"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="svrha">Svrha Placanja: </label>
-                        <div class="col-sm-4">
-                            <input class="form-control" id="svrha" type="text" maxlength="255" ng-model="warrant.podaciOPlacanju.svrhaPlacanja"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="primalac">Primalac (Poverilac): </label>
-                        <div class="col-sm-4">
-                            <input class="form-control" id="primalac" type="text" maxlength="255" ng-model="warrant.podaciOPlacanju.primalacPoverilac"/>
-                        </div>
-                    </div>
-
-                    <hr/>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="datumNaloga">Datum Naloga: </label>
-                        <div class="col-sm-4">
-                            <input class="form-control" id="datumNaloga" type="date" ng-model="warrant.podaciOPlacanju.datumNaloga"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="datumValute">Datum Valute: </label>
-                        <div class="col-sm-4">
-                            <input class="form-control" id="datumValute" type="date" ng-model="warrant.podaciOPlacanju.datumValute"/>
-                        </div>
-                    </div>
-
-                    <hr/>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="racunDuznika">Racun Duznika: </label>
-                        <div class="col-sm-4">
-                            <input class="form-control" id="racunDuznika" type="text" maxlength="18" ng-model="warrant.podaciOPlacanju.racunDuznika"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="modelZaduzenja">Model Zaduzenja: </label>
-                        <div class="col-sm-4">
-                            <input class="form-control" id="modelZaduzenja" type="number" max="99" ng-model="warrant.podaciOPlacanju.modelZaduzenja"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="pozivNaBrojZaduzenja">Poziv Na Broj Zaduzenja: </label>
-                        <div class="col-sm-4">
-                            <input class="form-control" id="pozivNaBrojZaduzenja" type="text" maxlength="20" ng-model="warrant.podaciOPlacanju.pozivNaBrojZaduzenja"/>
-                        </div>
-                    </div>
-
-                    <hr/>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="racunPoverioca">Racun Poverioca: </label>
-                        <div class="col-sm-4">
-                            <input class="form-control" id="racunPoverioca" type="text" maxlength="18" ng-model="warrant.podaciOPlacanju.racunPoverioca"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="modelOdobrenja">Model Odobrenja: </label>
-                        <div class="col-sm-4">
-                            <input class="form-control" id="modelOdobrenja" type="number" max="99" ng-model="warrant.podaciOPlacanju.modelOdobrenja"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="pozivNaBrojOdobrenja">Poziv Na Broj Odobrenja: </label>
-                        <div class="col-sm-4">
-                            <input class="form-control" id="pozivNaBrojOdobrenja" type="number" maxlength="99999999999999999999" ng-model="warrant.podaciOPlacanju.pozivNaBrojOdobrenja"/>
-                        </div>
-                    </div>
-
-                    <hr/>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="iznos">Iznos: </label>
-                        <div class="col-sm-4">
-                            <input class="form-control" id="iznos" type="number" step="0.01" max="999999999999999" ng-model="warrant.podaciOPlacanju.iznos"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="oznakaValute">Oznaka Valute: </label>
-                        <div class="col-sm-4">
-                            <input class="form-control" id="oznakaValute" type="text" maxlength="3" ng-model="warrant.oznakaValute"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="hitno">Hitno: </label>
-                        <div class="col-sm-4">
-                            <input class="form-control" id="hitno" type="checkbox" ng-model="warrant.hitno"/>
-                        </div>
-                    </div>
-
-                </form>
+                </div>
                 <hr/>
-                <button type="button" class="btn btn-sm btn-success" ng-click="saveWarrant()" data-dismiss="modal">Save changes</button>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="duznik">Duznik (Nalogodavac): </label>
+                    <div class="col-sm-4">
+                        <input class="form-control" id="duznik" type="text" maxlength="255" ng-model="warrant.duznikNalogodavac" ng-disabled="showWarrantDetails"/>
+                    </div>
+                </div>
 
-            </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="svrha">Svrha Placanja: </label>
+                    <div class="col-sm-4">
+                        <input class="form-control" id="svrha" type="text" maxlength="255" ng-model="warrant.svrhaPlacanja" ng-disabled="showWarrantDetails"/>
+                    </div>
+                </div>
 
-            <br/>
-            <button type="button" class="btn btn-sm btn-primary"  ng-click="showWarrantForm(!warrantFormShow)"> {{warrantCreateButton}} </button>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="primalac">Primalac (Poverilac): </label>
+                    <div class="col-sm-4">
+                        <input class="form-control" id="primalac" type="text" maxlength="255" ng-model="warrant.primalacPoverilac" ng-disabled="showWarrantDetails"/>
+                    </div>
+                </div>
 
+                <hr/>
 
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="datumNaloga">Datum Naloga: </label>
+                    <div class="col-sm-4">
+                        <input class="form-control" id="datumNaloga" type="date" ng-model="warrant.datumNaloga" ng-disabled="showWarrantDetails"/>
+                    </div>
+                </div>
 
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="datumValute">Datum Valute: </label>
+                    <div class="col-sm-4">
+                        <input class="form-control" id="datumValute" type="date" ng-model="warrant.datumValute" ng-disabled="showWarrantDetails"/>
+                    </div>
+                </div>
+
+                <hr/>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="racunDuznika">Racun Duznika: </label>
+                    <div class="col-sm-4">
+                        <input class="form-control" id="racunDuznika" type="text" maxlength="18" ng-model="warrant.racunDuznika" ng-disabled="showWarrantDetails"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="modelZaduzenja">Model Zaduzenja: </label>
+                    <div class="col-sm-4">
+                        <input class="form-control" id="modelZaduzenja" type="number" max="99" ng-model="warrant.modelZaduzenja" ng-disabled="showWarrantDetails"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="pozivNaBrojZaduzenja">Poziv Na Broj Zaduzenja: </label>
+                    <div class="col-sm-4">
+                        <input class="form-control" id="pozivNaBrojZaduzenja" type="text" maxlength="20" ng-model="warrant.pozivNaBrojZaduzenja" ng-disabled="showWarrantDetails"/>
+                    </div>
+                </div>
+
+                <hr/>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="racunPoverioca">Racun Poverioca: </label>
+                    <div class="col-sm-4">
+                        <input class="form-control" id="racunPoverioca" type="text" maxlength="18" ng-model="warrant.racunPoverioca" ng-disabled="showWarrantDetails"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="modelOdobrenja">Model Odobrenja: </label>
+                    <div class="col-sm-4">
+                        <input class="form-control" id="modelOdobrenja" type="number" max="99" ng-model="warrant.modelOdobrenja" ng-disabled="showWarrantDetails"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="pozivNaBrojOdobrenja">Poziv Na Broj Odobrenja: </label>
+                    <div class="col-sm-4">
+                        <input class="form-control" id="pozivNaBrojOdobrenja" type="number" maxlength="99999999999999999999" ng-model="warrant.pozivNaBrojOdobrenja" ng-disabled="showWarrantDetails"/>
+                    </div>
+                </div>
+
+                <hr/>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="iznos">Iznos: </label>
+                    <div class="col-sm-4">
+                        <input class="form-control" id="iznos" type="number" step="0.01" max="999999999999999" ng-model="warrant.iznos" ng-disabled="showWarrantDetails"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="oznakaValute">Oznaka Valute: </label>
+                    <div class="col-sm-4">
+                        <input class="form-control" id="oznakaValute" type="text" maxlength="3" ng-model="warrant.oznakaValute" ng-disabled="showWarrantDetails"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="hitno">Hitno: </label>
+                    <div class="col-sm-4">
+                        <input class="form-control" id="hitno" type="checkbox" ng-model="warrant.hitno" ng-disabled="showWarrantDetails"/>
+                    </div>
+                </div>
+
+            </form>
+            <hr/>
+            <button ng-if="!showWarrantDetails" type="button" class="btn btn-sm btn-success" ng-click="saveWarrant()" data-dismiss="modal">Save changes</button>
+            <hr/>
         </div>
 
-        <div id="poslatiNalozi" class="tab-pane fade" ng-click="getPoslati()">
-            <!--
-                 <table class="table table-bordered">
-                     <thead>
-                         <tr>
-                             <th>Primalac</th>
-                             <th>Svrha</th>
-                             <th>Iznos</th>
-                             <th>Hitno</th>
-                             <th>Datum</th>
-                         </tr>
-                     </thead>
-                     <tbody>
-                         <tr ng-repeat="warrant in sentWarrant | orderBy warrant.primalac" ng-click="details(warrant)">
-                             <th>warrant.primalac</th>
-                             <th>warrant.svrhaPlacanja</th>
-                             <th>warrant.iznos</th>
-                             <th>warrant.hitno</th>
-                             <th>warrant.datum</th>
-                         </tr>
-                     </tbody>
-                 </table>
-                 -->
+        <br/>
+        <button type="button" class="btn btn-sm btn-primary"  ng-click="showWarrantForm(!warrantFormShow)"> {{warrantCreateButton}} </button>
 
-        </div>
-
-        <div id="primljeniNalozi" class="tab-pane fade" ng-click="getPrimljeni()">
-            <!--
-                 <table class="table table-bordered">
-                     <thead>
-                         <tr>
-                             <th>Primalac</th>
-                             <th>Svrha</th>
-                             <th>Iznos</th>
-                             <th>Hitno</th>
-                             <th>Datum</th>
-                         </tr>
-                     </thead>
-                     <tbody>
-                         <tr ng-repeat="warrant in receivedWarrant | orderBy warrant.primalac" ng-click="details(warrant)">
-                             <th>warrant.primalac</th>
-                             <th>warrant.svrhaPlacanja</th>
-                             <th>warrant.iznos</th>
-                             <th>warrant.hitno</th>
-                             <th>warrant.datum</th>
-                         </tr>
-                     </tbody>
-                 </table>
-                 -->
-
-        </div>
-
-
-    </div>
 
 </div>
