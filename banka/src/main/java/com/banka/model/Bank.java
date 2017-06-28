@@ -24,5 +24,5 @@ public class Bank {
 
     @Column(name = "swift_code")
     private String swiftCode;
-    
+
 }
