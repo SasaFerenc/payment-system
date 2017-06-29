@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -28,5 +29,15 @@ public class BankServiceImpl implements BankService {
     @Override
     public Bank findByAccountCode(String accountCode) {
         return bankRepository.findByAccountCode(accountCode);
+    }
+
+    @Override
+    public Bank findByLocal(boolean local) {
+        return bankRepository.findByLocal(local);
+    }
+
+    @Override
+    public List<Bank> findAll() {
+        return bankRepository.findAll();
     }
 }

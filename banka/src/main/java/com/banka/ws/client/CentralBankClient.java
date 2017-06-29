@@ -2,10 +2,7 @@ package com.banka.ws.client;
 
 import com.banka.model.Account;
 import com.banka.services.AccountService;
-import com.banka.types.Mt103;
-import com.banka.types.Mt900;
-import com.banka.types.ObjectFactory;
-import com.banka.types.PodaciOPlacanju;
+import com.banka.types.*;
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +33,11 @@ public class CentralBankClient {
         account.setTotal(account.getTotal().subtract(response.getIznos()));
         accountService.save(account);
         return response;
+    }
+
+    public void sendMT102(Mt102 mt102) {
+        StringResponse response = (StringResponse) webServiceTemplate.marshalSendAndReceive(mt102);
+        LOGGER.info(response.getMessage());
     }
 
 }

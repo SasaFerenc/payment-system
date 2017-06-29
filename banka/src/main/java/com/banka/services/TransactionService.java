@@ -2,6 +2,7 @@ package com.banka.services;
 
 import com.banka.model.Account;
 import com.banka.model.Bank;
+import com.banka.model.PaymentRequest;
 import com.banka.repository.AccountRepository;
 import com.banka.types.Mt102;
 import com.banka.types.Mt103;
@@ -26,6 +27,9 @@ public class TransactionService {
     BankService bankService;
 
     @Autowired
+    PaymentRequestService paymentRequestService;
+
+    @Autowired
     CentralBankClient centralBankClient;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TransactionService.class);
@@ -37,6 +41,8 @@ public class TransactionService {
         } else {
             if(nalog.getPodaciOPlacanju().getIznos().compareTo(new BigDecimal(250000)) == 1 || nalog.isHitno()) {
                 sendRtgs(nalog);
+            } else {
+                paymentInClearing(nalog);
             }
         }
     }
@@ -75,6 +81,31 @@ public class TransactionService {
         mt103.setSifraValute(nalog.getOznakaValute());
         mt103.setPodaciOPlacanju(nalog.getPodaciOPlacanju());
         centralBankClient.sendMT103(mt103);
+    }
+
+    public void paymentInClearing(Nalog nalog) {
+        PaymentRequest paymentRequest = new PaymentRequest();
+        paymentRequest.setValuteCode(nalog.getOznakaValute());
+        paymentRequest.setCreditorName(nalog.getPodaciOPlacanju().getDuznikNalogodavac());
+        paymentRequest.setPurpose(nalog.getPodaciOPlacanju().getSvrhaPlacanja());
+        paymentRequest.setDebtorName(nalog.getPodaciOPlacanju().getPrimalacPoverilac());
+        paymentRequest.setPaymentDate(nalog.getPodaciOPlacanju().getDatumNaloga().toGregorianCalendar().getTime());
+        paymentRequest.setValuteDate(nalog.getPodaciOPlacanju().getDatumValute().toGregorianCalendar().getTime());
+        paymentRequest.setCreditorAccountNumber(nalog.getPodaciOPlacanju().getRacunDuznika());
+        paymentRequest.setChargeModel(nalog.getPodaciOPlacanju().getModelZaduzenja());
+        paymentRequest.setDebitReferenceNumber(nalog.getPodaciOPlacanju().getPozivNaBrojZaduzenja());
+        paymentRequest.setDebtorAccountNumber(nalog.getPodaciOPlacanju().getRacunPoverioca());
+        paymentRequest.setAllowanceModel(nalog.getPodaciOPlacanju().getModelOdobrenja());
+        paymentRequest.setCreditReferenceNumber(nalog.getPodaciOPlacanju().getPozivNaBrojOdobrenja());
+        paymentRequest.setAmount(nalog.getPodaciOPlacanju().getIznos());
+        paymentRequest.setSettled(false);
+        paymentRequest.setIdMT("");
+        paymentRequestService.save(paymentRequest);
+
+        //reserving resources
+        Account creditorAccount = accountService.findByCountNumber(nalog.getPodaciOPlacanju().getRacunDuznika()).get(0);
+        creditorAccount.setReserved((creditorAccount.getReserved()).add(nalog.getPodaciOPlacanju().getIznos()));
+        accountService.save(creditorAccount);
     }
 
 }
