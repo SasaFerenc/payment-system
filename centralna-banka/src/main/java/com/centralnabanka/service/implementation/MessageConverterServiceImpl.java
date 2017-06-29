@@ -123,7 +123,7 @@ public class MessageConverterServiceImpl implements MessageConverterService {
         response.setDatumValute(message.getDatumValute());
         response.setSifraValute(message.getSifraValute());
         response.setIznos(message.getUkupanIznos());
-        response.setIdPorukeNaloga("MT102-" + message.getIdPoruke());
+        response.setIdPorukeNaloga(message.getIdPoruke());
         response.setSwiftKodDuznika(message.getSwiftKodDuznika());
         response.setObracunskiRacunDuznika(message.getObracunskiRacunDuznika());
 
@@ -137,7 +137,7 @@ public class MessageConverterServiceImpl implements MessageConverterService {
         response.setDatumValute(message.getPodaciOPlacanju().getDatumValute());
         response.setSifraValute(message.getSifraValute());
         response.setIznos(message.getPodaciOPlacanju().getIznos());
-        response.setIdPorukeNaloga("MT103-" + message.getIdPoruke());
+        response.setIdPorukeNaloga(message.getIdPoruke());
         response.setSwiftKodDuznika(message.getSwiftKodDuznika());
         response.setObracunskiRacunDuznika(message.getObracunskiRacunDuznika());
 
