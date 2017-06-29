@@ -5,5 +5,5 @@ import com.banka.types.ZahtevZaIzvod;
 
 public interface BankStatementService {
 
-    Presek processBankStatementRequest(ZahtevZaIzvod request);
+    Presek processBankStatementRequest(ZahtevZaIzvod request) throws Exception;
 }
