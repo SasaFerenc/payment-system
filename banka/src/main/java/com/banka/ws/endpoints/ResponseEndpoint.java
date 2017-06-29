@@ -5,6 +5,7 @@ import com.banka.model.Bank;
 import com.banka.model.PaymentRequest;
 import com.banka.services.AccountService;
 import com.banka.services.PaymentRequestService;
+import com.banka.services.StatementConversionService;
 import com.banka.types.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,12 +33,17 @@ public class ResponseEndpoint {
     @Autowired
     PaymentRequestService paymentRequestService;
 
+    @Autowired
+    StatementConversionService statementConversionService;
+
     @PayloadRoot(namespace = NAMESPACE_URI_103, localPart = "mt103")
     @ResponsePayload
     public StringResponse handleRtgs103(@RequestPayload Mt103 mt103) {
         LOGGER.info("103 stigla: " + mt103.getIdPoruke());
         StringResponse response = new StringResponse();
         response.setMessage("OK");
+
+        statementConversionService.saveStatementPaymentFrom103(mt103, false);
 
         Account account = accountService.findByCountNumber(mt103.getPodaciOPlacanju().getRacunPoverioca()).get(0);
         account.setTotal(account.getTotal().add(mt103.getPodaciOPlacanju().getIznos()));
@@ -50,6 +56,8 @@ public class ResponseEndpoint {
     @ResponsePayload
     public StringResponse handle102(@RequestPayload Mt102 mt102) {
         LOGGER.info("102 stigla: " + mt102.getIdPoruke());
+
+        statementConversionService.saveStatementPaymentFrom102(mt102, false);
 
         for(Mt102.PojedinacnaPlacanja pojedinacnaPlacanja : mt102.getPojedinacnaPlacanja()) {
             Account account = accountService.findByCountNumber(pojedinacnaPlacanja.getPodaciOPlacanju().getRacunPoverioca()).get(0);
