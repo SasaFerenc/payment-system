@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -18,6 +19,11 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
     @Override
     public PaymentRequest findOne(Long id) {
         return paymentRequestRepository.getOne(id);
+    }
+
+    @Override
+    public List<PaymentRequest> findByBankCode(String bankCode) {
+        return paymentRequestRepository.findByBankCode(bankCode);
     }
 
     @Override
