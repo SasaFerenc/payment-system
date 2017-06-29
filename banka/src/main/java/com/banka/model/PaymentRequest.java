@@ -61,4 +61,7 @@ public class PaymentRequest implements Serializable {
     @Column(name = "settled")
     private boolean settled = false;
 
+    @Column
+    private String idMT;
+
 }

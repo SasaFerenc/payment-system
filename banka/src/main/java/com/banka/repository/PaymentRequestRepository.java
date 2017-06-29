@@ -14,5 +14,6 @@ public interface PaymentRequestRepository extends JpaRepository<PaymentRequest, 
     PaymentRequest save(PaymentRequest paymentRequest);
     @Query("select pr from PaymentRequest pr where pr.debtorAccountNumber like ?1%")
     List<PaymentRequest> findByBankCode(String bankCode);
+    List<PaymentRequest> findByIdMT(String idMt);
 
 }

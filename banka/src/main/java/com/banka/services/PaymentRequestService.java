@@ -9,5 +9,6 @@ public interface PaymentRequestService {
     PaymentRequest findOne(Long id);
     PaymentRequest save(PaymentRequest paymentRequest);
     List<PaymentRequest> findByBankCode(String bankCode);
+    List<PaymentRequest> findByIdMT(String idMt);
 
 }

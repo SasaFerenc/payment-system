@@ -27,6 +27,11 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
     }
 
     @Override
+    public List<PaymentRequest> findByIdMT(String idMt) {
+        return paymentRequestRepository.findByIdMT(idMt);
+    }
+
+    @Override
     public PaymentRequest save(PaymentRequest paymentRequest) {
         return paymentRequestRepository.save(paymentRequest);
     }

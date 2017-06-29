@@ -105,6 +105,7 @@ public class SettlementScheduler {
            PaymentRequest request = paymentRequests.get(i);
            if(!request.isSettled()) {
                request.setSettled(true);
+               request.setIdMT(messageId);
                paymentRequestService.save(request);
            }
        }

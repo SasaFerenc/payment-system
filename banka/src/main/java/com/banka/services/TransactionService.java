@@ -99,6 +99,7 @@ public class TransactionService {
         paymentRequest.setCreditReferenceNumber(nalog.getPodaciOPlacanju().getPozivNaBrojOdobrenja());
         paymentRequest.setAmount(nalog.getPodaciOPlacanju().getIznos());
         paymentRequest.setSettled(false);
+        paymentRequest.setIdMT("");
         paymentRequestService.save(paymentRequest);
 
         //reserving resources
