@@ -12,7 +12,7 @@ public interface InvoiceService {
 
     List<Faktura> getAll();
 
-    Faktura sentInvoice(Faktura faktura);
+    Faktura sentInvoice(Faktura faktura, String url);
 
     List<Faktura> getSent(Boolean sent);
 

@@ -1,6 +1,8 @@
 package com.firma.controller;
 
+import com.firma.model.Banka;
 import com.firma.model.Nalog;
+import com.firma.repository.BankRepository;
 import com.firma.service.PaymentService;
 import com.firma.types.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @Controller
@@ -19,10 +22,12 @@ public class PaymentRequestController {
 
     private static Logger loger = Logger.getLogger("S");
     private PaymentService paymentService;
+    private BankRepository bankRepository;
 
     @Autowired
-    public PaymentRequestController(PaymentService paymentService){
+    public PaymentRequestController(PaymentService paymentService, BankRepository bankRepository){
         this.paymentService = paymentService;
+        this.bankRepository = bankRepository;
     }
 
     @RequestMapping(
@@ -61,8 +66,11 @@ public class PaymentRequestController {
             method = RequestMethod.POST
     )
     public void sendPayment(@RequestBody Nalog nalog){
+        Optional<Banka> banka = bankRepository.findById(1L);
         com.firma.types.Nalog n = transformPayment(nalog);
-        paymentService.send(n);
+        if(banka.isPresent())
+            paymentService.send(n, banka.get().getAddress());
+        return;
     }
 
     private com.firma.types.Nalog transformPayment(Nalog nalog){

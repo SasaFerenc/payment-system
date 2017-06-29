@@ -18,13 +18,13 @@ public class FirmClient {
 
     private Logger LOGGER = LoggerFactory.getLogger(FirmClient.class);
 
-    public void sendPayment(Nalog nalog){
-        StringResponse response = (StringResponse)webServiceTemplate.marshalSendAndReceive("http://192.168.1.3:8080/ws", nalog);
+    public void sendPayment(Nalog nalog, String address){
+        StringResponse response = (StringResponse)webServiceTemplate.marshalSendAndReceive(address, nalog);
         LOGGER.info(response.getMessage());
     }
 
-    public Presek getBankStatement(ZahtevZaIzvod zahtev){
+    public Presek getBankStatement(ZahtevZaIzvod zahtev, String address){
 
-        return(Presek)webServiceTemplate.marshalSendAndReceive("", zahtev);
+        return(Presek)webServiceTemplate.marshalSendAndReceive(address, zahtev);
     }
 }

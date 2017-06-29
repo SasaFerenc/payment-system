@@ -42,8 +42,8 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public void send(com.firma.types.Nalog nalog) {
-        firmClient.sendPayment(nalog);
+    public void send(com.firma.types.Nalog nalog, String address) {
+        firmClient.sendPayment(nalog, address);
     }
 
 }
