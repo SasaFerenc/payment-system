@@ -55,6 +55,7 @@ public class MessageConverterServiceImpl implements MessageConverterService {
             paymentRequest.setPurpose(payment.getPodaciOPlacanju().getSvrhaPlacanja());
             paymentRequest.setDebtorName(payment.getPodaciOPlacanju().getPrimalacPoverilac());
             paymentRequest.setPaymentDate(payment.getPodaciOPlacanju().getDatumNaloga().toGregorianCalendar().getTime());
+            paymentRequest.setValuteDate(payment.getPodaciOPlacanju().getDatumValute().toGregorianCalendar().getTime());
             paymentRequest.setCreditorAccountNumber(payment.getPodaciOPlacanju().getRacunDuznika());
             paymentRequest.setChargeModel(payment.getPodaciOPlacanju().getModelZaduzenja());
             paymentRequest.setDebitReferenceNumber(payment.getPodaciOPlacanju().getPozivNaBrojZaduzenja());
@@ -104,6 +105,7 @@ public class MessageConverterServiceImpl implements MessageConverterService {
             paymentInfo.setModelOdobrenja(paymentRequest.getAllowanceModel());
             paymentInfo.setPozivNaBrojOdobrenja(paymentRequest.getCreditReferenceNumber());
             paymentInfo.setIznos(paymentRequest.getAmount());
+            paymentInfo.setDatumValute(toGregorianCalendarDate(paymentRequest.getValuteDate()));
 
             individualPayment.setPodaciOPlacanju(paymentInfo);
             individualPayment.setSifraValute(paymentRequest.getValuteCode());
