@@ -12,14 +12,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 
 import javax.xml.datatype.DatatypeFactory;
 import java.math.BigDecimal;
 import java.rmi.server.UID;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class SettlementScheduler {
@@ -43,7 +41,7 @@ public class SettlementScheduler {
                 try {
                     String bankCode = b.getAccountNumber().substring(0, 3);
                     List<PaymentRequest> paymentRequests = paymentRequestService.findByBankCode(bankCode);
-                    if(paymentRequests.size() > 0) {
+                    if(paymentRequests.size() > 0 && paymentRequests.stream().filter(request -> !request.isSettled()).count() > 0) {
                         Mt102 mt102 = makeMt102(b, paymentRequests);
                         centralBankClient.sendMT102(mt102);
                     }
@@ -67,35 +65,48 @@ public class SettlementScheduler {
         mt102.setObracunskiRacunPoverioca(bank.getAccountNumber());
         mt102.setUkupanIznos(new BigDecimal(0));
         mt102.setSifraValute(paymentRequests.get(0).getValuteCode());
-        mt102.setDatum(new XMLGregorianCalendarImpl());
-        mt102.setDatumValute(new XMLGregorianCalendarImpl());
+        Date date = new Date();
+        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        gregorianCalendar.setTime(date);
+        mt102.setDatum(DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianCalendar));
+        mt102.setDatumValute(DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianCalendar));
        for(PaymentRequest request : paymentRequests) {
-           Mt102.PojedinacnaPlacanja pojedinacnaPlacanja = new Mt102.PojedinacnaPlacanja();
+           if(!request.isSettled()) {
+               Mt102.PojedinacnaPlacanja pojedinacnaPlacanja = new Mt102.PojedinacnaPlacanja();
 
-           PodaciOPlacanju podaciOPlacanju = new PodaciOPlacanju();
-           podaciOPlacanju.setDuznikNalogodavac(request.getCreditorName());
-           podaciOPlacanju.setSvrhaPlacanja(request.getPurpose());
-           podaciOPlacanju.setPrimalacPoverilac(request.getDebtorName());
-           GregorianCalendar gregorianDatumNaloga = new GregorianCalendar();
-           gregorianDatumNaloga.setTime(request.getPaymentDate());
-           podaciOPlacanju.setDatumNaloga(DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianDatumNaloga));
-           GregorianCalendar gregorianDatumValute = new GregorianCalendar();
-           gregorianDatumValute.setTime(request.getValuteDate());
-           podaciOPlacanju.setDatumValute(DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianDatumValute));
-           podaciOPlacanju.setRacunDuznika(request.getCreditorAccountNumber());
-           podaciOPlacanju.setModelZaduzenja(request.getChargeModel());
-           podaciOPlacanju.setPozivNaBrojZaduzenja(request.getDebitReferenceNumber());
-           podaciOPlacanju.setRacunPoverioca(request.getDebtorAccountNumber());
-           podaciOPlacanju.setModelOdobrenja(request.getAllowanceModel());
-           podaciOPlacanju.setPozivNaBrojOdobrenja(request.getCreditReferenceNumber());
-           podaciOPlacanju.setIznos(request.getAmount());
-           mt102.setUkupanIznos(mt102.getUkupanIznos().add(request.getAmount()));
+               PodaciOPlacanju podaciOPlacanju = new PodaciOPlacanju();
+               podaciOPlacanju.setDuznikNalogodavac(request.getCreditorName());
+               podaciOPlacanju.setSvrhaPlacanja(request.getPurpose());
+               podaciOPlacanju.setPrimalacPoverilac(request.getDebtorName());
+               GregorianCalendar gregorianDatumNaloga = new GregorianCalendar();
+               gregorianDatumNaloga.setTime(request.getPaymentDate());
+               podaciOPlacanju.setDatumNaloga(DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianDatumNaloga));
+               GregorianCalendar gregorianDatumValute = new GregorianCalendar();
+               gregorianDatumValute.setTime(request.getValuteDate());
+               podaciOPlacanju.setDatumValute(DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianDatumValute));
+               podaciOPlacanju.setRacunDuznika(request.getCreditorAccountNumber());
+               podaciOPlacanju.setModelZaduzenja(request.getChargeModel());
+               podaciOPlacanju.setPozivNaBrojZaduzenja(request.getDebitReferenceNumber());
+               podaciOPlacanju.setRacunPoverioca(request.getDebtorAccountNumber());
+               podaciOPlacanju.setModelOdobrenja(request.getAllowanceModel());
+               podaciOPlacanju.setPozivNaBrojOdobrenja(request.getCreditReferenceNumber());
+               podaciOPlacanju.setIznos(request.getAmount());
+               mt102.setUkupanIznos(mt102.getUkupanIznos().add(request.getAmount()));
 
-           pojedinacnaPlacanja.setIdNaloga(UUID.randomUUID().toString());
-           pojedinacnaPlacanja.setPodaciOPlacanju(podaciOPlacanju);
-           pojedinacnaPlacanja.setSifraValute(request.getValuteCode());
+               pojedinacnaPlacanja.setIdNaloga(UUID.randomUUID().toString());
+               pojedinacnaPlacanja.setPodaciOPlacanju(podaciOPlacanju);
+               pojedinacnaPlacanja.setSifraValute(request.getValuteCode());
 
-           mt102.getPojedinacnaPlacanja().add(pojedinacnaPlacanja);
+               mt102.getPojedinacnaPlacanja().add(pojedinacnaPlacanja);
+           }
+       }
+
+       for(int i = 0; i < paymentRequests.size(); i++) {
+           PaymentRequest request = paymentRequests.get(i);
+           if(!request.isSettled()) {
+               request.setSettled(true);
+               paymentRequestService.save(request);
+           }
        }
 
        return mt102;

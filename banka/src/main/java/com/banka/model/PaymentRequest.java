@@ -17,7 +17,7 @@ public class PaymentRequest implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private String id;
+    private Long id;
 
     @Column(name = "valute_code")
     private String valuteCode;
@@ -59,6 +59,6 @@ public class PaymentRequest implements Serializable {
     private BigDecimal amount;
 
     @Column(name = "settled")
-    private boolean settled;
+    private boolean settled = false;
 
 }
