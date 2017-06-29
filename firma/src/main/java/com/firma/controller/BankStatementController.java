@@ -1,10 +1,13 @@
 package com.firma.controller;
 
+import com.firma.model.Banka;
+import com.firma.repository.BankRepository;
 import com.firma.service.BankStatementService;
 import com.firma.types.ObjectFactory;
 import com.firma.model.ZahtevZaIzvod;
 import com.firma.types.Presek;
 import com.firma.types.StavkaPreseka;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,10 +26,12 @@ import java.util.stream.Collectors;
 public class BankStatementController {
 
     private BankStatementService bankStatement;
+    private BankRepository bankRepository;
 
     @Autowired
-    public BankStatementController(BankStatementService bankStatement){
+    public BankStatementController(BankStatementService bankStatement, BankRepository bankRepository){
         this.bankStatement = bankStatement;
+        this.bankRepository = bankRepository;
     }
 
     @RequestMapping(
@@ -36,8 +41,12 @@ public class BankStatementController {
     )
     @ResponseBody
     public com.firma.model.Presek requestStatement(@RequestBody ZahtevZaIzvod zahtev){
-        com.firma.model.Presek presek = transformPresek(bankStatement.sendStatementRequest(transformZahtev(zahtev)));
-        return bankStatement.saveBankStatement(presek);
+        Optional<Banka> banka = bankRepository.findById(1L);
+        if(banka.isPresent()) {
+            com.firma.model.Presek presek = transformPresek(bankStatement.sendStatementRequest(transformZahtev(zahtev), banka.get().getAddress()));
+            return bankStatement.saveBankStatement(presek);
+        }
+        return null;
     }
 
     private com.firma.types.ZahtevZaIzvod transformZahtev(ZahtevZaIzvod zahtev){

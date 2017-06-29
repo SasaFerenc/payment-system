@@ -21,8 +21,8 @@ public class BankStatementServiceImpl implements BankStatementService {
     }
 
     @Override
-    public Presek sendStatementRequest(ZahtevZaIzvod zahtev) {
-        return firmClient.getBankStatement(zahtev);
+    public Presek sendStatementRequest(ZahtevZaIzvod zahtev, String address) {
+        return firmClient.getBankStatement(zahtev, address);
     }
 
     @Override
