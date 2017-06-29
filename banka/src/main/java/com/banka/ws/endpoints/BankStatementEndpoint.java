@@ -23,7 +23,7 @@ public class BankStatementEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "zahtev_za_izvod")
     @ResponsePayload
-    public Presek handleBankStatementRequest(@RequestPayload ZahtevZaIzvod request) {
+    public Presek handleBankStatementRequest(@RequestPayload ZahtevZaIzvod request) throws Exception {
         LOGGER.info("Statement request for account: " + request.getBrojRacuna());
 
         return bankStatementService.processBankStatementRequest(request);
