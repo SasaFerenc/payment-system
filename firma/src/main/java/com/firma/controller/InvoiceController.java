@@ -69,7 +69,6 @@ public class InvoiceController {
     )
     @ResponseBody
     public Faktura receiveInvoice(@RequestBody Faktura faktura){
-
         return invoiceService.receiveInvoice(faktura);
     }
 

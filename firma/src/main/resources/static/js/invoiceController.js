@@ -3,7 +3,6 @@ var app = angular.module('FirmApplication.invoiceController', []);
 app.controller("invoice",['$scope' ,'factory', function ($scope, factory){
 
     $scope.invoiceFormShow = false;
-    $scope.invoiceCreateButton = "Kreiraj Fakturu";
 
     $scope.invoices = [];
 
@@ -75,6 +74,20 @@ app.controller("invoice",['$scope' ,'factory', function ($scope, factory){
             return;
         }
 
+        for(var i in $scope.invoices){
+            if($scope.invoices[i].idPoruke === $scope.invoice.idPoruke){
+                return;
+            }
+        }
+
+        $scope.getSentInvoice();
+        for(var i in $scope.sentInvoices){
+            if($scope.sentInvoices[i].idPoruke === $scope.invoice.idPoruke){
+                return;
+            }
+        }
+
+
         factory.createInvoice($scope.invoice).then(function success(response) {
             response.data.datumRacuna = new Date(response.data.datumRacuna);
             response.data.datumValute = new Date(response.data.datumValute);
@@ -131,11 +144,7 @@ app.controller("invoice",['$scope' ,'factory', function ($scope, factory){
 
         initialiseInvoice();
 
-        if(flag){
-            $scope.invoiceCreateButton = "Odustani";
-        }else{
-            $scope.invoiceCreateButton = "Kreiraj Fakturu";
-        }
+
     }
 
     
@@ -144,6 +153,10 @@ app.controller("invoice",['$scope' ,'factory', function ($scope, factory){
 
     $scope.getSentInvoice = function () {
         factory.getSentInvoice().then(function success(response) {
+            for(var i in response.data){
+                response.data[i].datumRacuna = new Date(response.data[i].datumRacuna);
+                response.data[i].datumValute = new Date(response.data[i].datumValute);
+            }
             $scope.sentInvoices = response.data;
         })
     }
@@ -153,6 +166,10 @@ app.controller("invoice",['$scope' ,'factory', function ($scope, factory){
 
     $scope.getReceived = function () {
         factory.getReceivedInvoice().then(function success(response) {
+            for(var i in response.data){
+                response.data[i].datumRacuna = new Date(response.data[i].datumRacuna);
+                response.data[i].datumValute = new Date(response.data[i].datumValute);
+            }
             $scope.receivedInvoices = response.data;
         })
     }
