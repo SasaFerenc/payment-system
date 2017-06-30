@@ -41,10 +41,12 @@ public class BankStatementServiceImpl implements BankStatementService {
         header.setBrojPromenaNaTeret(countOutgoing(resultSet));
         header.setUkupnoUKorist(new BigDecimal(incomingAmount(resultSet)));
         header.setUkupnoNaTeret(new BigDecimal(outgongAmount(resultSet)));
+        header.setPrethodnoStanje(new BigDecimal(10000));
+        header.setUkupnoStanje(new BigDecimal(50000));
 
         page.setZaglavljePreseka(header);
 
-        int from = pageIndex * ITEMS_PER_PAGE;
+        int from = (pageIndex - 1) * ITEMS_PER_PAGE;
         int to = from + ITEMS_PER_PAGE;
 
         if (to > resultSet.size()) {

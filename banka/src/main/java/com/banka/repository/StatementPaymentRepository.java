@@ -14,6 +14,6 @@ public interface StatementPaymentRepository extends JpaRepository<StatementPayme
 
     StatementPayment save(StatementPayment statementPayment);
 
-    @Query(value = "SELECT s FROM StatementPayment s WHERE (s.creditorAccountNumber= '?1' OR s.debtorAccountNumber = '?1') AND s.paymentDate = ?2")
+    @Query(value = "SELECT s FROM StatementPayment s WHERE (s.creditorAccountNumber= ?1 OR s.debtorAccountNumber = ?1) AND s.paymentDate = ?2")
     List<StatementPayment> getByAccountNumberAndDate(String accountNumber, Date date);
 }

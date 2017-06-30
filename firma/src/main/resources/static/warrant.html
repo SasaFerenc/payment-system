@@ -64,7 +64,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="primalac">Primalac (Poverilac): </label>
                     <div class="col-sm-4">
-                        <input class="form-control" id="primalac" type="text" maxlength="255" ng-model="warrant.primalacPoverilac" ng-disabled="true"/>
+                        <input class="form-control" id="primalac" type="text" maxlength="255" ng-model="warrant.primalacPoverilac" ng-disabled="false"/>
                     </div>
                 </div>
 
@@ -80,7 +80,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="datumValute">Datum Valute: </label>
                     <div class="col-sm-4">
-                        <input class="form-control" id="datumValute" type="date" ng-model="warrant.datumValute" ng-disabled="true"/>
+                        <input class="form-control" id="datumValute" type="date" ng-model="warrant.datumValute" ng-disabled="false"/>
                     </div>
                 </div>
 
@@ -89,7 +89,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="racunDuznika">Racun Duznika: </label>
                     <div class="col-sm-4">
-                        <input class="form-control" id="racunDuznika" type="text" maxlength="18" ng-model="warrant.racunDuznika" ng-disabled="true"/>
+                        <input class="form-control" id="racunDuznika" type="text" maxlength="18" ng-model="warrant.racunDuznika" ng-disabled="false"/>
                     </div>
                 </div>
 
@@ -112,7 +112,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="racunPoverioca">Racun Poverioca: </label>
                     <div class="col-sm-4">
-                        <input class="form-control" id="racunPoverioca" type="text" maxlength="18" ng-model="warrant.racunPoverioca" ng-disabled="true"/>
+                        <input class="form-control" id="racunPoverioca" type="text" maxlength="18" ng-model="warrant.racunPoverioca" ng-disabled="false"/>
                     </div>
                 </div>
 
@@ -161,6 +161,4 @@
 
         <br/>
         <button type="button" class="btn btn-sm btn-primary"  ng-click="showWarrantForm(!warrantFormShow)"> {{warrantCreateButton}} </button>
-
-
 </div>

@@ -51,7 +51,6 @@
             <output>
                 <soap:body use="literal" />
             </output>
-            <fault name="mt103Fault" />
         </operation>
     </binding>
     
