@@ -20,6 +20,7 @@ public class PaymentRequest extends Base {
     private String purpose;
     private String debtorName;
     private Date paymentDate;
+    private Date valuteDate;
     private String creditorAccountNumber;
     private int chargeModel;
     private String debitReferenceNumber;

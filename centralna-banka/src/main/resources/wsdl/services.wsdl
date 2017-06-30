@@ -17,17 +17,27 @@
         </schema>
     </types>
 
-    <message name="RTGSRequest">
+    <message name="RTGS_Request">
         <part name="mt103" element="mt103" />
     </message>
-    <message name="RTGSResponse">
+    <message name="RTGS_Response">
         <part name="mt900" element="mt900" />
+    </message>
+    <message name="ClearingAndSettlement_Request">
+        <part name="mt102" element="mt102" />
+    </message>
+    <message name="StringResponse">
+        <part name="message" element="StringResponse" />
     </message>
 
     <portType name="CentralBank_PortType">
         <operation name="receiveMt103">
-            <input message="RTGSRequest" />
-            <output message="RTGSResponse" />
+            <input message="RTGS_Request" />
+            <output message="RTGS_Response" />
+        </operation>
+        <operation name="receiveMt102">
+            <input message="ClearingAndSettlement_Request" />
+            <output message="StringResponse" />
         </operation>
     </portType>
     
@@ -41,7 +51,6 @@
             <output>
                 <soap:body use="literal" />
             </output>
-            <fault name="mt103Fault" />
         </operation>
     </binding>
     

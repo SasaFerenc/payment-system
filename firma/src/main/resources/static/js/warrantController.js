@@ -42,6 +42,12 @@ app.controller('warrant', ['$scope', 'factory' , function ($scope, factory){
             return;
         }
 
+        for(var i in $scope.warrants){
+            if($scope.warrants[i].idPoruke === $scope.warrant.idPoruke){
+                return;
+            }
+        }
+
         factory.createWarrant($scope.warrant).then(function success(response) {
             response.data.datumNaloga = new Date(response.data.datumNaloga);
             response.data.datumValute = new Date(response.data.datumValute);
@@ -95,13 +101,23 @@ app.controller('warrant', ['$scope', 'factory' , function ($scope, factory){
     $scope.receivedInvoices = [];
 
     var getReceived = function () {
-        factory.getCreatedInvoice().then(function success(response) {
+        factory.getReceivedInvoice().then(function success(response) {
+            for(var i in response.data){
+                response.data[i].datumRacuna = new Date(response.data[i].datumRacuna);
+                response.data[i].datumValute = new Date(response.data[i].datumValute);
+            }
             $scope.receivedInvoices = response.data;
         })
     }
 
     $scope.selectedWarrant = function () {
+        $scope.warrant.primalacPoverilac = $scope.Combo.poFakturi.nazivDobavljaca;
+        $scope.warrant.svrhaPlacanja = $scope.Combo.poFakturi.idPoruke;
+        $scope.warrant.racunPoverioca = $scope.Combo.poFakturi.uplataNaRacun;
+        $scope.warrant.oznakaValute = $scope.Combo.poFakturi.oznakaValute;
+        $scope.warrant.datumValute = $scope.Combo.poFakturi.datumValute;
         $scope.warrant.iznos = $scope.Combo.poFakturi.iznosZaUplatu;
+        $scope.warrant.racunDuznika = $scope.Combo.poFakturi.brojRacuna;
     }
-    
+
 }]);

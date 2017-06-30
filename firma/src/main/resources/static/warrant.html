@@ -57,14 +57,14 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="svrha">Svrha Placanja: </label>
                     <div class="col-sm-4">
-                        <input class="form-control" id="svrha" type="text" maxlength="255" ng-model="warrant.svrhaPlacanja" ng-disabled="showWarrantDetails"/>
+                        <input class="form-control" id="svrha" type="text" maxlength="255" ng-model="warrant.svrhaPlacanja" ng-disabled="true"/>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="primalac">Primalac (Poverilac): </label>
                     <div class="col-sm-4">
-                        <input class="form-control" id="primalac" type="text" maxlength="255" ng-model="warrant.primalacPoverilac" ng-disabled="showWarrantDetails"/>
+                        <input class="form-control" id="primalac" type="text" maxlength="255" ng-model="warrant.primalacPoverilac" ng-disabled="false"/>
                     </div>
                 </div>
 
@@ -80,7 +80,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="datumValute">Datum Valute: </label>
                     <div class="col-sm-4">
-                        <input class="form-control" id="datumValute" type="date" ng-model="warrant.datumValute" ng-disabled="showWarrantDetails"/>
+                        <input class="form-control" id="datumValute" type="date" ng-model="warrant.datumValute" ng-disabled="false"/>
                     </div>
                 </div>
 
@@ -89,7 +89,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="racunDuznika">Racun Duznika: </label>
                     <div class="col-sm-4">
-                        <input class="form-control" id="racunDuznika" type="text" maxlength="18" ng-model="warrant.racunDuznika" ng-disabled="showWarrantDetails"/>
+                        <input class="form-control" id="racunDuznika" type="text" maxlength="18" ng-model="warrant.racunDuznika" ng-disabled="false"/>
                     </div>
                 </div>
 
@@ -112,7 +112,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="racunPoverioca">Racun Poverioca: </label>
                     <div class="col-sm-4">
-                        <input class="form-control" id="racunPoverioca" type="text" maxlength="18" ng-model="warrant.racunPoverioca" ng-disabled="showWarrantDetails"/>
+                        <input class="form-control" id="racunPoverioca" type="text" maxlength="18" ng-model="warrant.racunPoverioca" ng-disabled="false"/>
                     </div>
                 </div>
 
@@ -135,14 +135,14 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="iznos">Iznos: </label>
                     <div class="col-sm-4">
-                        <input class="form-control" id="iznos" type="number" step="0.01" max="999999999999999" ng-model="warrant.iznos" ng-disabled="showWarrantDetails"/>
+                        <input class="form-control" id="iznos" type="number" step="0.01" max="999999999999999" ng-model="warrant.iznos" ng-disabled="true"/>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="oznakaValute">Oznaka Valute: </label>
                     <div class="col-sm-4">
-                        <input class="form-control" id="oznakaValute" type="text" maxlength="3" ng-model="warrant.oznakaValute" ng-disabled="showWarrantDetails"/>
+                        <input class="form-control" id="oznakaValute" type="text" maxlength="3" ng-model="warrant.oznakaValute" ng-disabled="true"/>
                     </div>
                 </div>
 
@@ -161,6 +161,4 @@
 
         <br/>
         <button type="button" class="btn btn-sm btn-primary"  ng-click="showWarrantForm(!warrantFormShow)"> {{warrantCreateButton}} </button>
-
-
 </div>

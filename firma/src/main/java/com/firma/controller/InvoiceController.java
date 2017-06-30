@@ -1,5 +1,7 @@
 package com.firma.controller;
 
+import com.firma.model.Firma;
+import com.firma.repository.FirmRepository;
 import com.firma.service.InvoiceService;
 import com.firma.model.Faktura;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +17,12 @@ public class InvoiceController {
 
     private static Logger loger = Logger.getLogger("S");
     private InvoiceService invoiceService;
+    private FirmRepository firmRepository;
 
     @Autowired
-    public InvoiceController(InvoiceService invoiceService){
+    public InvoiceController(InvoiceService invoiceService, FirmRepository firmRepository){
+
+        this.firmRepository = firmRepository;
         this.invoiceService = invoiceService;
     }
 
@@ -52,7 +57,9 @@ public class InvoiceController {
             consumes = "application/json"
     )
     public Faktura sendInvoice(@RequestBody Faktura faktura){
-        return invoiceService.sentInvoice(faktura);
+        Firma firma = firmRepository.findByPib(faktura.getPibKupca());
+        loger.info(firma.getAddress());
+        return invoiceService.sentInvoice(faktura, firma.getAddress());
     }
 
     @RequestMapping(
@@ -62,7 +69,6 @@ public class InvoiceController {
     )
     @ResponseBody
     public Faktura receiveInvoice(@RequestBody Faktura faktura){
-
         return invoiceService.receiveInvoice(faktura);
     }
 

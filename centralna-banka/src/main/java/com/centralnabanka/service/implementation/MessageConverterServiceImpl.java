@@ -6,7 +6,6 @@ import com.centralnabanka.service.MessageConverterService;
 import com.centralnabanka.types.*;
 import org.springframework.stereotype.Service;
 
-import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.ArrayList;
@@ -18,41 +17,19 @@ import java.util.List;
 public class MessageConverterServiceImpl implements MessageConverterService {
 
     @Override
-    public Mt900 convertToMt900(Object message) throws Exception {
-        Mt900 response = new Mt900();
+    public Mt910 convertToMt910(Object message) throws Exception {
+        if (message instanceof Mt102) return convertToMt910((Mt102) message);
+        if (message instanceof Mt103) return convertToMt910((Mt103) message);
 
-        String idPoruke = (String) invokeMethod(message, "getIdPoruke");
-        PodaciOPlacanju podaciOPlacanju = (PodaciOPlacanju) invokeMethod(message, "getPodaciOPlacanju");
-        String idPorukeNaloga = message.getClass().getSimpleName().toUpperCase() + "-" + idPoruke;
-
-        response.setIdPoruke(idPoruke);
-        response.setDatumValute(podaciOPlacanju.getDatumValute());
-        response.setSifraValute((String) invokeMethod(message, "getSifraValute"));
-        response.setIznos(podaciOPlacanju.getIznos());
-        response.setIdPorukeNaloga(idPorukeNaloga);
-        response.setSwiftKodDuznika((String) invokeMethod(message, "getSwiftKodDuznika"));
-        response.setObracunskiRacunDuznika((String) invokeMethod(message, "getObracunskiRacunDuznika"));
-
-        return response;
+        throw new IllegalArgumentException();
     }
 
     @Override
-    public Mt910 convertToMt910(Object message) throws Exception {
-        Mt910 response = new Mt910();
+    public Mt900 convertToMt900(Object message) throws Exception {
+        if (message instanceof Mt102) return convertToMt900((Mt102) message);
+        if (message instanceof Mt103) return convertToMt900((Mt103) message);
 
-        String idPoruke = (String) invokeMethod(message, "getIdPoruke");
-        PodaciOPlacanju podaciOPlacanju = (PodaciOPlacanju) invokeMethod(message, "getPodaciOPlacanju");
-        String idPorukeNaloga = message.getClass().getSimpleName().toUpperCase() + "-" + idPoruke;
-
-        response.setIdPoruke(idPoruke);
-        response.setDatumValute(podaciOPlacanju.getDatumValute());
-        response.setSifraValute((String) invokeMethod(message, "getSifraValute"));
-        response.setIznos(podaciOPlacanju.getIznos());
-        response.setIdPorukeNaloga(idPorukeNaloga);
-        response.setSwiftKodPoverioca((String) invokeMethod(message, "getSwiftKodPoverioca"));
-        response.setObracunskiRacunPoverioca((String) invokeMethod(message, "getObracunskiRacunPoverioca"));
-
-        return response;
+        throw new IllegalArgumentException();
     }
 
     @Override
@@ -78,6 +55,7 @@ public class MessageConverterServiceImpl implements MessageConverterService {
             paymentRequest.setPurpose(payment.getPodaciOPlacanju().getSvrhaPlacanja());
             paymentRequest.setDebtorName(payment.getPodaciOPlacanju().getPrimalacPoverilac());
             paymentRequest.setPaymentDate(payment.getPodaciOPlacanju().getDatumNaloga().toGregorianCalendar().getTime());
+            paymentRequest.setValuteDate(payment.getPodaciOPlacanju().getDatumValute().toGregorianCalendar().getTime());
             paymentRequest.setCreditorAccountNumber(payment.getPodaciOPlacanju().getRacunDuznika());
             paymentRequest.setChargeModel(payment.getPodaciOPlacanju().getModelZaduzenja());
             paymentRequest.setDebitReferenceNumber(payment.getPodaciOPlacanju().getPozivNaBrojZaduzenja());
@@ -127,6 +105,7 @@ public class MessageConverterServiceImpl implements MessageConverterService {
             paymentInfo.setModelOdobrenja(paymentRequest.getAllowanceModel());
             paymentInfo.setPozivNaBrojOdobrenja(paymentRequest.getCreditReferenceNumber());
             paymentInfo.setIznos(paymentRequest.getAmount());
+            paymentInfo.setDatumValute(toGregorianCalendarDate(paymentRequest.getValuteDate()));
 
             individualPayment.setPodaciOPlacanju(paymentInfo);
             individualPayment.setSifraValute(paymentRequest.getValuteCode());
@@ -137,8 +116,60 @@ public class MessageConverterServiceImpl implements MessageConverterService {
         return mt102;
     }
 
-    private Object invokeMethod(Object object, String methodName) throws Exception {
-        return object.getClass().getMethod(methodName, new Class<?>[] {}).invoke(object);
+    private Mt900 convertToMt900(Mt102 message) throws Exception {
+        Mt900 response = new Mt900();
+
+        response.setIdPoruke(message.getIdPoruke());
+        response.setDatumValute(message.getDatumValute());
+        response.setSifraValute(message.getSifraValute());
+        response.setIznos(message.getUkupanIznos());
+        response.setIdPorukeNaloga(message.getIdPoruke());
+        response.setSwiftKodDuznika(message.getSwiftKodDuznika());
+        response.setObracunskiRacunDuznika(message.getObracunskiRacunDuznika());
+
+        return response ;
+    }
+
+    private Mt900 convertToMt900(Mt103 message) throws Exception {
+        Mt900 response = new Mt900();
+
+        response.setIdPoruke(message.getIdPoruke());
+        response.setDatumValute(message.getPodaciOPlacanju().getDatumValute());
+        response.setSifraValute(message.getSifraValute());
+        response.setIznos(message.getPodaciOPlacanju().getIznos());
+        response.setIdPorukeNaloga(message.getIdPoruke());
+        response.setSwiftKodDuznika(message.getSwiftKodDuznika());
+        response.setObracunskiRacunDuznika(message.getObracunskiRacunDuznika());
+
+        return response;
+    }
+
+    private Mt910 convertToMt910(Mt102 message) throws Exception {
+        Mt910 response = new Mt910();
+
+        response.setIdPoruke(message.getIdPoruke());
+        response.setDatumValute(message.getDatumValute());
+        response.setSifraValute(message.getSifraValute());
+        response.setIznos(message.getUkupanIznos());
+        response.setIdPorukeNaloga("MT102-" + message.getIdPoruke());
+        response.setSwiftKodPoverioca(message.getSwiftKodPoverioca());
+        response.setObracunskiRacunPoverioca(message.getObracunskiRacunPoverioca());
+
+        return response;
+    }
+
+    private Mt910 convertToMt910(Mt103 message) throws Exception {
+        Mt910 response = new Mt910();
+
+        response.setIdPoruke(message.getIdPoruke());
+        response.setDatumValute(message.getPodaciOPlacanju().getDatumValute());
+        response.setSifraValute(message.getSifraValute());
+        response.setIznos(message.getPodaciOPlacanju().getIznos());
+        response.setIdPorukeNaloga("MT103-" + message.getIdPoruke());
+        response.setSwiftKodPoverioca(message.getSwiftKodPoverioca());
+        response.setObracunskiRacunPoverioca(message.getObracunskiRacunPoverioca());
+
+        return response;
     }
 
     private XMLGregorianCalendar toGregorianCalendarDate(Date date) throws Exception {
